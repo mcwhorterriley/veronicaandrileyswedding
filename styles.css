@@ -1,0 +1,113 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-style: italic;
+    background-image: url("/pictures/ori_4167451_1ndmx5tsiauglmb27bb6lxodpaubt2idv8ttebuy_navy-blue-flowers-arrangement-clipart-navy-blue-floral-wedding.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #2e2c8a;
+}
+
+/* Header Styles */
+.header {
+    background-color: #4a8edbac;
+    position: relative;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    font-size: x-large;
+    font-style: italic;
+    padding: 10px 0;
+    text-align: center;
+    height: 100px;
+}
+
+/* Video Section */
+.video-section {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.engagement-video {
+    width: 80%;
+    max-width: 800px;
+    border: 5px solid #5d8bff;
+    border-radius: 10px;
+}
+
+/* Slideshow Section */
+.slideshow-section {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.slides {
+    display: none;
+    width: 100%;
+    height: auto;
+    
+}
+
+.slides img {
+    width: 50%;
+    border-radius: 10px;
+    border: 5px solid #5d8bff;
+}
+
+/* Slideshow Navigation Buttons */
+.prev, .next {
+    position: relative;
+    top: 132%;
+    background-color: #5c87ff;
+    color: rgb(255, 168, 243);
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    z-index: 10;
+}
+
+.prev {
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.next {
+    right: 0;
+    transform: translateY(-50%);
+}
+
+/* Footer Styles */
+.footer {
+    position: inherit;
+    width: 100%;
+    background-color: transparent;
+    text-align: center;
+    padding: 10px 0;
+    color: yellow;
+    font-style: italic;
+    bottom: 0;
+    
+}
+
+.footer a {
+    color: rgb(41, 21, 129);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    font-style: italic;
+    position: unset;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    color: #ff00bf;
+    font-style: italic;
+    font-weight: bolder;
+}
