@@ -1,113 +1,121 @@
-/* General Styles */
-body {
+/* Basic Reset */
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-    font-style: italic;
-    background-image: url("./assets/images/ori_4167451_1ndmx5tsiauglmb27bb6lxodpaubt2idv8ttebuy_navy-blue-flowers-arrangement-clipart-navy-blue-floral-wedding.jpg");
-    background-size: cover;
+    padding: 0;
+
+}
+
+body {
+    background-image:url("/pictures/ori_4167451_1ndmx5tsiauglmb27bb6lxodpaubt2idv8ttebuy_navy-blue-flowers-arrangement-clipart-navy-blue-floral-wedding.jpg");
     background-repeat: no-repeat;
-    color: #2e2c8a;
+    background-size: cover;
+    color: #201f4f;
+    font-family: cursive;
 }
 
 /* Header Styles */
-.header {
-    background-color: #4a8edbac;
+header {
     position: relative;
-    width: 100%;
-    color: rgb(255, 255, 255);
-    font-size: x-large;
-    font-style: italic;
-    padding: 10px 0;
-    text-align: center;
-    height: 100px;
+    display: flex;
+    justify-content: center;
 }
 
-/* Video Section */
-.video-section {
-    text-align: center;
-    padding: 50px 0;
+.header-img {
+
+    filter: brightness(0.7);
 }
 
-.engagement-video {
+/* Main Content */
+.main-content {
+    padding: 20px;
+    text-align: center;
+}
+.videoHeader{
+margin-inline-start: auto;
+}
+
+.vBanner {
+    background-color: #fef9f8ad;
+    border-color: #201f4f;
+    border-width: 6px;
+    border-style: dotted;
+    margin-bottom: 15px;
+    font-size: 1em;
+    color: #201f4f;
+    font-family: cursive; 
+
+}
+
+.v2Banner {
+    margin-bottom: 15px;
+    font-size: 1em;
+    color: #201f4f;
+    font-family: cursive; 
+
+}
+
+.video {
     width: 80%;
     max-width: 800px;
-    border: 5px solid #5d8bff;
     border-radius: 10px;
 }
 
-/* Slideshow Section */
-.slideshow-section {
-    text-align: center;
-    padding: 50px 0;
+video a:hover {
+    cursor: crosshair;
 }
+
+.sBanner {
+    background-color: #fef9f8ad;
+    width: max-content;
+    display: inline-flex;
+    border-color: #201f4f;
+    border-width: 4px;
+    border-style: dotted;
+    margin-bottom: 15px;
+    font-size: 1em;
+    color: #201f4f;
+    font-family: cursive; 
+
+}
+
 
 .slideshow-container {
     position: relative;
-    max-width: 1000px;
+    max-width: 25%;
+    max-height: 10%;
     margin: auto;
 }
 
-.slides {
+
+.slide {
     display: none;
+}
+
+img {
     width: 100%;
-    height: auto;
-    
-}
-
-.slides img {
-    width: 50%;
     border-radius: 10px;
-    border: 5px solid #5d8bff;
-}
-
-/* Slideshow Navigation Buttons */
-.prev, .next {
-    position: relative;
-    top: 132%;
-    background-color: #5c87ff;
-    color: rgb(255, 168, 243);
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
-    padding: 15px;
-    z-index: 10;
-}
-
-.prev {
-    left: 0;
-    transform: translateY(-50%);
-}
-
-.next {
-    right: 0;
-    transform: translateY(-50%);
 }
 
 /* Footer Styles */
-.footer {
-    position: inherit;
-    width: 100%;
-    background-color: transparent;
+footer {
+    background-color: transparent;  
+    color: #8400ff;
+    font-family: cursive;
     text-align: center;
-    padding: 10px 0;
-    color: yellow;
-    font-style: italic;
-    bottom: 0;
-    
+    padding: 10px;
+    position: 0;
+    bottom: -52px;
+    width: 100%;
+    height: 12%;
 }
 
-.footer a {
-    color: rgb(41, 21, 129);
+footer a {
+    color: #8400ff;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    font-style: italic;
-    position: unset;
 }
 
-.footer a:hover {
+footer a:hover {
     text-decoration: underline;
-    color: #ff00bf;
-    font-style: italic;
-    font-weight: bolder;
+    color: lightskyblue;
 }
+
