@@ -35,7 +35,10 @@ margin-inline-start: auto;
 }
 
 .vBanner {
-    background-color: #fef9f8ad;
+    
+    background-image: url("/assets/images/banner.png");
+    background-repeat: no-repeat;
+    background-size: cover;    
     border-color: #201f4f;
     border-width: 6px;
     border-style: dotted;
@@ -118,5 +121,6 @@ footer a:hover {
     text-decoration: underline;
     color: lightskyblue;
 }
+
 
 
