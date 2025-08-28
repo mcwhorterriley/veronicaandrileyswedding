@@ -9,6 +9,7 @@ body {
     background-image: url("assets/images/background.png");
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment:fixed;
     color: #201f4f;
     font-family: cursive;
 }
@@ -40,6 +41,7 @@ margin-inline-start: auto;
     background-repeat: no-repeat;
     background-size: cover;    
     border-color: #201f4f;
+    background-attachment:fixed;
     border-width: 6px;
     border-style: dotted;
     margin-bottom: 15px;
@@ -121,6 +123,7 @@ footer a:hover {
     text-decoration: underline;
     color: lightskyblue;
 }
+
 
 
 
