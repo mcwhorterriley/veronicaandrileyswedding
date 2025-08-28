@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: url("./assets/images/background.png");
+    background-image: url("assets/images/background.png");
     background-repeat: no-repeat;
     background-size: cover;
     color: #201f4f;
@@ -36,7 +36,7 @@ margin-inline-start: auto;
 
 .vBanner {
     
-    background-image: url("./assets/images/banner.png");
+    background-image: url("assets/images/banner.png");
     background-repeat: no-repeat;
     background-size: cover;    
     border-color: #201f4f;
@@ -121,6 +121,7 @@ footer a:hover {
     text-decoration: underline;
     color: lightskyblue;
 }
+
 
 
 
