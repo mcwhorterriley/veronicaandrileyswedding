@@ -10,6 +10,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment:fixed;
+    background-position:center;
     color: #201f4f;
     font-family: cursive;
 }
@@ -42,6 +43,7 @@ margin-inline-start: auto;
     background-size: cover;    
     border-color: #201f4f;
     background-attachment:fixed;
+    background-position:center;
     border-width: 6px;
     border-style: dotted;
     margin-bottom: 15px;
@@ -92,7 +94,7 @@ video a:hover {
 }
 
 
-.slide {
+.slides {
     display: none;
 }
 
@@ -123,6 +125,7 @@ footer a:hover {
     text-decoration: underline;
     color: lightskyblue;
 }
+
 
 
 
