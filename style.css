@@ -5,6 +5,10 @@
 
 }
 
+html, body {
+    min-height: 100%;
+}
+
 body {
     background-image: url("assets/images/background.png");
     background-repeat: no-repeat;
@@ -125,6 +129,7 @@ footer a:hover {
     text-decoration: underline;
     color: lightskyblue;
 }
+
 
 
 
