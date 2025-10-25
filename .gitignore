@@ -1,11 +1,19 @@
+# dependencies & caches
 node_modules/
 .vite/
 node_modules/.vite/
+
+# build output
 dist/
 *.log
+
+# editor/system
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+
+# env
 .env
 .env.*.local
+ 

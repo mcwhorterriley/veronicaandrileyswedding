@@ -12,130 +12,22 @@ const ASSETS = {
   background: "/background.png",
   pooh: "/pooh-silhouette.png",
   envelope: "/envelope.png",
+  footer: "/footer.png",
   chime: "/magic-chime.mp3",
   amazon: "/amazon.png",
-  slideshow: [
-    "/ePhotos/fromAbove.jpg",
-    "/ePhotos/lookBack.jpg",
-    "/ePhotos/Lookeachother.jpg",
-    "/ePhotos/Lookeachother_2.jpg",
-  ],
+ 
   albumA: [
-    "/ePhotos/1.jpg",
-    "/ePhotos/2.jpg",
-    "ePhotos/3.jpg",
-    "ePhotos/4.jpg",
-    "ePhotos/5.jpg",
-    "ePhotos/6.jpg",
-    "ePhotos/7.jpg",
-    "ePhotos/8.jpg",
-    "ePhotos/9.jpg",
-    "ePhotos/10.jpg",
-    "ePhotos/11.jpg",
-    "ePhotos/12.jpg",
-    "ePhotos/13.jpg",
-    "ePhotos/14.jpg",
-    "ePhotos/15.jpg",
-    "ePhotos/16.jpg",
-    "ePhotos/17.jpg",
-    "ePhotos/18.jpg",
-    "ePhotos/19.jpg",
-    "ePhotos/20.jpg",
+    "/ePhotos/1.jpg", "/ePhotos/2.jpg", "/ePhotos/3.jpg", "/ePhotos/4.jpg", "/ePhotos/5.jpg", "/ePhotos/6.jpg", "/ePhotos/7.jpg", "/ePhotos/8.jpg", "/ePhotos/9.jpg", "/ePhotos/10.jpg",
+    "/ePhotos/11.jpg", "/ePhotos/12.jpg", "/ePhotos/13.jpg", "/ePhotos/14.jpg", "/ePhotos/15.jpg", "/ePhotos/16.jpg", "/ePhotos/17.jpg", "/ePhotos/18.jpg", "/ePhotos/19.jpg", "/ePhotos/20.jpg",
   ],
   albumB: [
-    "/italy/1.jpg",
-    "/italy/2.jpg",
-    "italy/3.jpg",
-    "italy/4.jpg",
-    "italy/5.jpg",
-    "italy/6.jpg",
-    "italy/7.jpg",
-    "italy/8.jpg",
-    "italy/9.jpg",
-    "italy/10.jpg",
-    "italy/11.jpg",
-    "italy/13.jpg",
-    "italy/28.jpg",
-    "italy/14.jpg",
-    "italy/27.jpg",
-    "italy/15.jpg",
-    "italy/16.jpg",
-    "italy/17.jpg",
-    "italy/18.jpg",
-    "italy/19.jpg",
-    "italy/20.jpg",
-    "italy/21.jpg",
-    "italy/22.jpg",
-    "italy/23.jpg",
-    "italy/24.jpg",
-    "italy/25.jpg",
-    "italy/26.jpg",
-    "italy/27.jpg",
-    "italy/29.jpg",
-    "italy/30.jpg",
-    "italy/31.jpg",
-    "italy/32.jpg",
-    "italy/33.jpg",
-    "italy/34.jpg",
-    "italy/35.jpg",
-    "italy/36.jpg",
-    "italy/37.jpg",
-    "italy/38.jpg",
-    "italy/39.jpg",
-    "italy/40.jpg",
-    "italy/41.jpg",
-    "italy/42.jpg",
-    "italy/43.jpg",
-    "italy/44.jpg",
-    "italy/45.jpg",
-    "italy/46.jpg",
-    "italy/47.jpg",
-    "italy/48.jpg",
-    "italy/49.jpg",
-    "italy/50.jpg",
-    "italy/51.jpg",
-    "italy/52.jpg",
-    "italy/53.jpg",
-    "italy/54.jpg",
-    "italy/55.jpg",
-    "italy/56.jpg",
-    "italy/57.jpg",
-    "italy/58.jpg",
-    "italy/59.jpg",
-    "italy/60.jpg",
-    "italy/61.jpg",
-    "italy/62.jpg",
-    "italy/63.jpg",
-    "italy/64.jpg",
-    "italy/65.jpg",
-    "italy/66.jpg",
-    "italy/67.jpg",
-    "italy/68.jpg",
-    "italy/69.jpg",
-    "italy/70.jpg",
-    "italy/71.jpg",
-    "italy/72.jpg",
-    "italy/73.jpg",
-    "italy/74.jpg",
-    "italy/75.jpg",
-    "italy/76.jpg",
-    "italy/77.jpg",
-    "italy/78.jpg",
-    "italy/79.jpg",
-    "italy/80.jpg",
-    "italy/81.jpg",
-    "italy/82.jpg",
-    "italy/83.jpg",
-    "italy/84.jpg",
-    "italy/85.jpg",
-    "italy/86.jpg",
-    "italy/87.jpg",
-    "italy/88.jpg",
-    "italy/89.jpg",
-    "italy/90.jpg",
-    "italy/91.jpg",
-    "italy/92.jpg",
-    "italy/93.jpg",
+    "/italy/1.jpg", "/italy/2.jpg", "/italy/3.jpg", "/italy/4.jpg", "/italy/5.jpg", "/italy/6.jpg", "/italy/7.jpg", "/italy/8.jpg", "/italy/9.jpg", "/italy/10.jpg", "/italy/11.jpg", "/italy/13.jpg", "/italy/28.jpg", "/italy/14.jpg", "/italy/27.jpg",
+    "/italy/15.jpg", "/italy/16.jpg", "/italy/17.jpg", "/italy/18.jpg", "/italy/19.jpg", "/italy/20.jpg", "/italy/21.jpg", "/italy/22.jpg", "/italy/23.jpg", "/italy/24.jpg", "/italy/25.jpg", "/italy/26.jpg", "/italy/27.jpg", "/italy/29.jpg", "/italy/30.jpg",
+    "/italy/31.jpg", "/italy/32.jpg", "/italy/33.jpg", "/italy/34.jpg", "/italy/35.jpg", "/italy/36.jpg", "/italy/37.jpg", "/italy/38.jpg", "/italy/39.jpg", "/italy/40.jpg", "/italy/41.jpg", "/italy/42.jpg", "/italy/43.jpg", "/italy/44.jpg", "/italy/45.jpg", 
+    "/italy/46.jpg", "/italy/47.jpg", "/italy/48.jpg", "/italy/49.jpg", "/italy/50.jpg", "/italy/51.jpg", "/italy/52.jpg", "/italy/53.jpg", "/italy/54.jpg", "/italy/55.jpg", "/italy/56.jpg", "/italy/57.jpg", "/italy/58.jpg", "/italy/59.jpg", "/italy/60.jpg",
+    "/italy/61.jpg", "/italy/62.jpg", "/italy/63.jpg", "/italy/64.jpg", "/italy/65.jpg", "/italy/66.jpg", "/italy/67.jpg", "/italy/68.jpg", "/italy/69.jpg", "/italy/70.jpg", "/italy/71.jpg", "/italy/72.jpg", "/italy/73.jpg", "/italy/74.jpg", "/italy/75.jpg", 
+    "/italy/76.jpg", "/italy/77.jpg", "/italy/78.jpg", "/italy/79.jpg", "/italy/80.jpg", "/italy/81.jpg",  "/italy/82.jpg", "/italy/83.jpg", "/italy/84.jpg", "/italy/85.jpg", "/italy/86.jpg", "/italy/87.jpg", "/italy/88.jpg", "/italy/89.jpg", "/italy/90.jpg",
+    "/italy/91.jpg", "/italy/92.jpg", "/italy/93.jpg",
   ],
 };
 
@@ -143,7 +35,7 @@ ASSETS.slideshow = [...ASSETS.albumA, ...ASSETS.albumB].sort(
   () => Math.random() - 0.5,
 );
 
-/* , "italy/94.jpg", "italy/95.jpg", "italy/96.jpg", "italy/97.jpg", "italy/98.jpg", "italy/99.jpg", */
+/* , "/italy/94.jpg", "/italy/95.jpg", "/italy/96.jpg", "/italy/97.jpg", "/italy/98.jpg", "/italy/99.jpg", */
 
 const REGISTRY_LINKS = [
   {
@@ -829,7 +721,7 @@ const Photos = () => {
 
   const albums = [
     { key: "A", title: "Engagement", images: ASSETS.albumA },
-    { key: "B", title: "Italy", images: ASSETS.albumB },
+    { key: "B", title: "/italy", images: ASSETS.albumB },
   ];
 
   return (
@@ -943,7 +835,7 @@ const Shell = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-30 bg-white/85 backdrop-blur border-b border-[#a48000]">
+      <header className="h-[75px] sticky top-0 z-30 bg-[#fff64cb3]">
         <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
           <nav className="flex gap-2">
             {tabs.map((t) => (
@@ -977,18 +869,33 @@ const Shell = () => {
         </AnimatePresence>
       </main>
 
-      <footer className="bg-white/75 border-t border-[#a48000] mt-16">
-        <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-[navy] font-bold text-center">
-          <a
-            href="https://theknot.com/rileylovesveronica"
-            target="_blank"
-            rel="noreferrer"
-            className="hover:underline"
-          >
-            Click here to visit our wedding page on The Knot!
-          </a>
-        </div>
-      </footer>
+
+
+<footer className="relative mt-16 border-t border-[#a48000]">
+  {/* image layer */}
+  <img
+    src={ASSETS.footer}
+    alt=""
+    className="block w-full h-[100px] md:h-[100px] object-cover select-none pointer-events-none"
+  />
+
+  {/* soft fade so the top blends into the page */}
+  <div
+    aria-hidden
+    className="absolute inset-0 pointer-events-none"
+    style={{
+      background:
+        "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 80%)",
+    }}
+  />
+
+  {/* content on top */}
+  <div className="absolute inset-0 flex items-center justify-center px-4">
+   
+  </div>
+</footer>
+
+
     </div>
   );
 };
