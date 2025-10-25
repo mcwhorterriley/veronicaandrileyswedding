@@ -1,12 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Camera,
-  Film,
-  Gift,
-  Home as HomeIcon,
-  ExternalLink,
-} from "lucide-react";
+import { Camera, Film, Gift, Home as HomeIcon } from "lucide-react";
 
 const ASSETS = {
   background: "/background.png",
@@ -15,27 +9,23 @@ const ASSETS = {
   footer: "/footer.png",
   chime: "/magic-chime.mp3",
   amazon: "/amazon.png",
- 
+
   albumA: [
-    "/ePhotos/1.jpg", "/ePhotos/2.jpg", "/ePhotos/3.jpg", "/ePhotos/4.jpg", "/ePhotos/5.jpg", "/ePhotos/6.jpg", "/ePhotos/7.jpg", "/ePhotos/8.jpg", "/ePhotos/9.jpg", "/ePhotos/10.jpg",
-    "/ePhotos/11.jpg", "/ePhotos/12.jpg", "/ePhotos/13.jpg", "/ePhotos/14.jpg", "/ePhotos/15.jpg", "/ePhotos/16.jpg", "/ePhotos/17.jpg", "/ePhotos/18.jpg", "/ePhotos/19.jpg", "/ePhotos/20.jpg",
-  ],
+    "/ePhotos/1.jpg", "/ePhotos/2.jpg", "/ePhotos/3.jpg", "/ePhotos/4.jpg", "/ePhotos/5.jpg", "/ePhotos/6.jpg", "/ePhotos/7.jpg", "/ePhotos/8.jpg", "/ePhotos/9.jpg",
+    "/ePhotos/10.jpg", "/ePhotos/11.jpg", "/ePhotos/12.jpg", "/ePhotos/13.jpg", "/ePhotos/14.jpg", "/ePhotos/15.jpg", "/ePhotos/16.jpg", "/ePhotos/17.jpg", "/ePhotos/18.jpg", "/ePhotos/19.jpg", "/ePhotos/20.jpg", ],
   albumB: [
-    "/italy/1.jpg", "/italy/2.jpg", "/italy/3.jpg", "/italy/4.jpg", "/italy/5.jpg", "/italy/6.jpg", "/italy/7.jpg", "/italy/8.jpg", "/italy/9.jpg", "/italy/10.jpg", "/italy/11.jpg", "/italy/13.jpg", "/italy/28.jpg", "/italy/14.jpg", "/italy/27.jpg",
-    "/italy/15.jpg", "/italy/16.jpg", "/italy/17.jpg", "/italy/18.jpg", "/italy/19.jpg", "/italy/20.jpg", "/italy/21.jpg", "/italy/22.jpg", "/italy/23.jpg", "/italy/24.jpg", "/italy/25.jpg", "/italy/26.jpg", "/italy/27.jpg", "/italy/29.jpg", "/italy/30.jpg",
-    "/italy/31.jpg", "/italy/32.jpg", "/italy/33.jpg", "/italy/34.jpg", "/italy/35.jpg", "/italy/36.jpg", "/italy/37.jpg", "/italy/38.jpg", "/italy/39.jpg", "/italy/40.jpg", "/italy/41.jpg", "/italy/42.jpg", "/italy/43.jpg", "/italy/44.jpg", "/italy/45.jpg", 
-    "/italy/46.jpg", "/italy/47.jpg", "/italy/48.jpg", "/italy/49.jpg", "/italy/50.jpg", "/italy/51.jpg", "/italy/52.jpg", "/italy/53.jpg", "/italy/54.jpg", "/italy/55.jpg", "/italy/56.jpg", "/italy/57.jpg", "/italy/58.jpg", "/italy/59.jpg", "/italy/60.jpg",
-    "/italy/61.jpg", "/italy/62.jpg", "/italy/63.jpg", "/italy/64.jpg", "/italy/65.jpg", "/italy/66.jpg", "/italy/67.jpg", "/italy/68.jpg", "/italy/69.jpg", "/italy/70.jpg", "/italy/71.jpg", "/italy/72.jpg", "/italy/73.jpg", "/italy/74.jpg", "/italy/75.jpg", 
-    "/italy/76.jpg", "/italy/77.jpg", "/italy/78.jpg", "/italy/79.jpg", "/italy/80.jpg", "/italy/81.jpg",  "/italy/82.jpg", "/italy/83.jpg", "/italy/84.jpg", "/italy/85.jpg", "/italy/86.jpg", "/italy/87.jpg", "/italy/88.jpg", "/italy/89.jpg", "/italy/90.jpg",
-    "/italy/91.jpg", "/italy/92.jpg", "/italy/93.jpg",
-  ],
+    "/italy/1.jpg", "/italy/2.jpg", "/italy/3.jpg", "/italy/4.jpg", "/italy/5.jpg", "/italy/6.jpg", "/italy/7.jpg", "/italy/8.jpg", "/italy/9.jpg", "/italy/10.jpg", "/italy/11.jpg",
+    "/italy/13.jpg", "/italy/28.jpg", "/italy/14.jpg", "/italy/27.jpg", "/italy/15.jpg", "/italy/16.jpg", "/italy/17.jpg", "/italy/18.jpg", "/italy/19.jpg", "/italy/20.jpg", "/italy/21.jpg",
+    "/italy/22.jpg", "/italy/23.jpg", "/italy/24.jpg", "/italy/25.jpg", "/italy/26.jpg", "/italy/27.jpg", "/italy/29.jpg", "/italy/30.jpg", "/italy/31.jpg", "/italy/32.jpg",
+    "/italy/33.jpg", "/italy/34.jpg", "/italy/35.jpg", "/italy/36.jpg", "/italy/37.jpg", "/italy/38.jpg", "/italy/39.jpg", "/italy/40.jpg", "/italy/41.jpg", "/italy/42.jpg",
+    "/italy/43.jpg", "/italy/44.jpg", "/italy/45.jpg", "/italy/46.jpg", "/italy/47.jpg", "/italy/48.jpg", "/italy/49.jpg", "/italy/50.jpg", "/italy/51.jpg", "/italy/52.jpg",
+    "/italy/53.jpg", "/italy/54.jpg", "/italy/55.jpg", "/italy/56.jpg", "/italy/57.jpg", "/italy/58.jpg", "/italy/59.jpg", "/italy/60.jpg", "/italy/61.jpg", "/italy/62.jpg", "/italy/63.jpg",
+    "/italy/64.jpg", "/italy/65.jpg", "/italy/66.jpg", "/italy/67.jpg", "/italy/68.jpg", "/italy/69.jpg", "/italy/70.jpg", "/italy/71.jpg", "/italy/72.jpg", "/italy/73.jpg",
+    "/italy/74.jpg", "/italy/75.jpg", "/italy/76.jpg", "/italy/77.jpg", "/italy/78.jpg", "/italy/79.jpg", "/italy/80.jpg", "/italy/81.jpg", "/italy/82.jpg", "/italy/83.jpg",
+    "/italy/84.jpg",  "/italy/85.jpg",  "/italy/86.jpg",  "/italy/87.jpg",  "/italy/88.jpg",  "/italy/89.jpg",  "/italy/90.jpg",  "/italy/91.jpg",  "/italy/92.jpg",  "/italy/93.jpg",],
 };
 
-ASSETS.slideshow = [...ASSETS.albumA, ...ASSETS.albumB].sort(
-  () => Math.random() - 0.5,
-);
-
-/* , "/italy/94.jpg", "/italy/95.jpg", "/italy/96.jpg", "/italy/97.jpg", "/italy/98.jpg", "/italy/99.jpg", */
+ASSETS.slideshow = [...ASSETS.albumA, ...ASSETS.albumB].sort(() => Math.random() - 0.5);
 
 const REGISTRY_LINKS = [
   {
@@ -43,28 +33,15 @@ const REGISTRY_LINKS = [
     href: "https://www.amazon.com/wedding/registry/FS3BNV5M1DJC",
     img: "/amazon.png",
   },
-  /* {
-    label: "Target",
-    href: "https://example.com/target",
-    img: "/images/registry/target.png", // placeholder
-  },
-  {
-    label: "Zola",
-    href: "https://example.com/zola",
-    img: "/images/registry/zola.png", // placeholder
-  },
-  */
 ];
 
 /* ----------------------------------------------------------
-   Global site background (was previously in App.jsx)
-   - fixed parallax image + soft gradient + vignette
+   Global site background
 ---------------------------------------------------------- */
-// ⬇️ Replace your GlobalBackground with this
 const GlobalBackground = () => {
   useEffect(() => {
     const img = new Image();
-    img.src = ASSETS.background; // e.g. "/background.jpg" in /public
+    img.src = ASSETS.background;
   }, []);
 
   return (
@@ -77,11 +54,11 @@ const GlobalBackground = () => {
 };
 
 /* ----------------------------------------------------------
-   ScreenFlash: full-screen flash that blooms then fades
+   ScreenFlash
 ---------------------------------------------------------- */
 const ScreenFlash = ({ duration = 1400 }) => (
   <motion.div
-    className="fixed inset-0  pointer-events-none"
+    className="fixed inset-0 pointer-events-none"
     initial={{ opacity: 0 }}
     animate={{ opacity: [0, 1, 0] }}
     transition={{ duration: duration / 1000, ease: "easeInOut" }}
@@ -109,16 +86,7 @@ const FireworkBurst = ({ origin = { x: "50%", y: "50%" }, local = false }) => {
     };
     const toCss = (v) => (typeof v === "number" ? `${v}px` : v);
 
-    const addParticle = ({
-      size = 3,
-      color = "rgba(255,255,255,1)",
-      blur = 0,
-      opacity = 1,
-      life = 1600,
-      delay = 0,
-      keyframes = [],
-      shadow = "",
-    }) => {
+    const addParticle = ({ size = 3, color = "rgba(255,255,255,1)", blur = 0, opacity = 1, life = 1600, delay = 0, keyframes = [], shadow = "" }) => {
       const p = document.createElement("span");
       p.className = "absolute rounded-full pointer-events-none";
       p.style.width = `${size}px`;
@@ -130,12 +98,7 @@ const FireworkBurst = ({ origin = { x: "50%", y: "50%" }, local = false }) => {
       p.style.transform = "translate(-50%, -50%)";
       if (blur > 0) p.style.filter = `blur(${blur}px)`;
       if (shadow) p.style.boxShadow = shadow;
-      p.animate(keyframes, {
-        duration: life,
-        delay,
-        easing: "cubic-bezier(.2,.7,.2,1)",
-        fill: "forwards",
-      });
+      p.animate(keyframes, { duration: life, delay, easing: "cubic-bezier(.2,.7,.2,1)", fill: "forwards" });
       host.appendChild(p);
       setTimeout(() => p.remove(), life + delay + 50);
     };
@@ -165,8 +128,7 @@ const FireworkBurst = ({ origin = { x: "50%", y: "50%" }, local = false }) => {
             offset: 0.35,
           },
           {
-            transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(0.9)`,
-            opacity: 0,
+            transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(0.9)`,opacity: 0,
           },
         ],
       });
@@ -201,12 +163,7 @@ const FireworkBurst = ({ origin = { x: "50%", y: "50%" }, local = false }) => {
     });
 
     // LAYER 3: Colored Embers
-    const emberColors = [
-      "rgba(253,164,175,1)",
-      "rgba(186,230,253,1)",
-      "rgba(147,197,253,1)",
-      "rgba(244,114,182,1)",
-    ];
+    const emberColors = ["rgba(253,164,175,1)", "rgba(186,230,253,1)", "rgba(147,197,253,1)", "rgba(244,114,182,1)"];
     make(120, () => {
       const theta = rand(0, Math.PI * 2);
       const r = rand(220, 380);
@@ -263,12 +220,7 @@ const FireworkBurst = ({ origin = { x: "50%", y: "50%" }, local = false }) => {
     });
   }, [origin.x, origin.y]);
 
-  return (
-    <div
-      ref={ref}
-      className={`${local ? "absolute inset-0" : "fixed inset-0"} pointer-events-none`}
-    />
-  );
+  return <div ref={ref} className={`${local ? "absolute inset-0" : "fixed inset-0"} pointer-events-none`} />;
 };
 
 /* ----------------------------------------------------------
@@ -290,26 +242,30 @@ const Landing = ({ onEnter }) => {
     chimeRef.current = a;
   }, []);
 
-const handleClick = () => {
-  try { chimeRef.current?.play().catch(() => {}); } catch {}
-  setEntering(true);
-  setFlash(true);
-  setFire(false);
-  requestAnimationFrame(() => setFire(true));
+  const handleClick = () => {
+    try {
+      chimeRef.current?.play().catch(() => {});
+    } catch {}
+    setEntering(true);
+    setFlash(true);
+    setFire(false);
+    requestAnimationFrame(() => setFire(true));
+    setTimeout(() => onEnter(true), 1200);
+    setTimeout(() => onEnter(true), 3000); // fallback
+  };
 
-  // go to the site after ~1.2s; also add a safety fallback
-  setTimeout(() => onEnter(true), 1200);
-  setTimeout(() => onEnter(true), 3000); // safety if first timer got skipped
-};
-
+  const envelopeVariants = {
+    idle: { rotate: -4 },
+    entering: { rotate: -6, scale: 1.06, boxShadow: "0 0 22px rgba(255,215,0,0.75)" },
+  };
 
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div className="flex min-h-screen flex-col items-center justify-center text-center px-4">
-        {/* Pooh wrapper scales with viewport */}
+        {/* Pooh wrapper: use CSS var for width */}
         <div
-          className="relative [var(--pooh-w)]"
-          style={{ ["--pooh-w"]: "clamp(560px, 52vmin, 1200px)" }}
+          className="relative"
+          style={{ width: "var(--pooh-w)", ["--pooh-w"]: "clamp(560px, 52vmin, 1200px)" }}
         >
           {/* Pooh */}
           <motion.img
@@ -333,19 +289,10 @@ const handleClick = () => {
             <motion.img
               src={ASSETS.envelope}
               alt="Click to go on adventure"
-              className="
-              w-[95%] md:w-[55%] lg:w-[65%]
-              rounded-2xl
-              select-none cursor-pointer block
-               drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]
-              "
+              className="w-[95%] md:w-[55%] lg:w-[65%] rounded-2xl select-none cursor-pointer block drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
               animate={
                 entering
-                  ? {
-                      rotate: -6,
-                      scale: 1.06,
-                      filter: "drop-shadow(0 0 22px rgba(255,215,0,0.75))",
-                    }
+                  ? { rotate: -6, scale: 1.06, filter: "drop-shadow(0 0 22px rgba(255,215,0,0.75))" }
                   : { rotate: -4 }
               }
               whileHover={{ y: -4, scale: 1.03 }}
@@ -366,15 +313,8 @@ const handleClick = () => {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 6 }}
-                  className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded-lg px-3 py-1.5 shadow-lg "
-                  style={{
-                    color: "navy",
-                    fontWeight: 700,
-                    fontStyle: "bold",
-                    fontSize: "0.9rem",
-                    opacity: 1,
-                    mixBlendMode: "normal",
-                  }}
+                  className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded-lg px-3 py-1.5 shadow-lg"
+                  style={{ color: "navy", fontWeight: 700, fontStyle: "bold", fontSize: "0.9rem", opacity: 1, mixBlendMode: "normal" }}
                 >
                   SOUND ON FOR MAGIC ✨
                 </motion.div>
@@ -405,11 +345,7 @@ const MiniSlideshow = ({ imgs = [], interval = 7000 }) => {
   if (!imgs.length) return null;
 
   return (
-    <div
-      className="relative w-full max-w-xl md:max-w-2xl mx-auto overflow-hidden
-                 rounded-2xl ring-1 ring-[#a48000]/50 shadow-sm bg-white/80"
-    >
-      {/* set real heights (md:h-80 ≈ 20rem). Adjust as you like */}
+    <div className="relative w-full max-w-xl md:max-w-2xl mx-auto overflow-hidden rounded-2xl ring-1 ring-[#a48000]/50 shadow-sm bg-white/80">
       <div className="w-full h-56 sm:h-64 md:h-80">
         <AnimatePresence mode="wait">
           <motion.img
@@ -433,9 +369,7 @@ const MiniSlideshow = ({ imgs = [], interval = 7000 }) => {
             onClick={() => setI(idx)}
             className="h-2 w-3 rounded-full"
             aria-label={`Go to slide ${idx + 1}`}
-            style={{
-              backgroundColor: idx === i ? "#000080" : "rgba(0,0,128,0.35)", // navy active/inactive
-            }}
+            style={{ backgroundColor: idx === i ? "#000080" : "rgba(0,0,128,0.35)" }}
           />
         ))}
       </div>
@@ -451,36 +385,17 @@ const HomePage = () => (
     <div className="grid gap-10 items-start md:grid-cols-2">
       {/* LEFT: title, subtitle, body */}
       <div className="space-y-4">
-        <h1 className="font-serif text-3xl md:text-4xl tracking-tight text-[navy]">
-          The Future Mrs. and Mr. McWhorter Welcome You To,
-        </h1>
-
+        <h1 className="font-serif text-3xl md:text-4xl tracking-tight text-[navy]">The Future Mrs. and Mr. McWhorter Welcome You To,</h1>
         <p className="text-[navy]/80 italic">Una Settimana d’Amore</p>
-
         <p className="text-[navy] leading-relaxed max-w-prose">
-          Una Settimana d’Amore, or A Week of Love. Join us as we begin our
-          Journey through Italy. Starting off in Roma, we spent four beautiful
-          days getting lost in the streets and being astonished by all of the
-          draw dropping architecture. From Roma, Veronica and I were off to the
-          city of Florence. Florence was quite the experience. From shopping to
-          our amazing cooking class where we learned how to make fettuccini,
-          ravioli, and tiramisu from scratch! Last up, Venice. A city that
-          movies don't do justice. Sure, there were hundreds of stairs and by no
-          means, no quick transportation. From the mask designing, the hidden
-          tower, and seeing the Murano Glass Factory. Nothing could compare to
-          July 4th when Veronica LeBlanc said yes to being my wife. Click
-          through and experience our journey with us. You can sing along a
-          slideshow or see Italy the Movie. If you see this, we love you and
-          cannot wait to celebrate with you.
+          Una Settimana d’Amore, or A Week of Love. Join us as we begin our Journey through Italy. Starting off in Roma, we spent four beautiful days getting lost in the streets and being astonished by all of the draw dropping architecture. From Roma, Veronica and I were off to the city of Florence. Florence was quite the experience. From shopping to our amazing cooking class where we learned how to make fettuccini, ravioli, and tiramisu from scratch! Last up, Venice. A city that movies don't do justice. Sure, there were hundreds of stairs and by no means, no quick transportation. From the mask designing, the hidden tower, and seeing the Murano Glass Factory. Nothing could compare to July 4th when Veronica LeBlanc said yes to being my wife. Click through and experience our journey with us. You can sing along a slideshow or see Italy the Movie. If you see this, we love you and cannot wait to celebrate with you.
         </p>
       </div>
 
       {/* RIGHT: slideshow preview */}
       <div className="md:justify-self-end">
         <MiniSlideshow imgs={ASSETS.slideshow} interval={7000} />
-        <div className="mt-3 text-center text-sm text-[navy]/70">
-          See Photos for more
-        </div>
+        <div className="mt-3 text-center text-sm text-[navy]/70">See Photos for more</div>
       </div>
     </div>
   </section>
@@ -490,30 +405,19 @@ const HomePage = () => (
 const AlbumCard = ({ title, images = [], onOpen }) => {
   const thumbs = images.slice(0, 4);
   return (
-    <button
-      onClick={onOpen}
-      className="group w-full overflow-hidden rounded-2xl bg-white/90 border border-amber-400 shadow-md hover:shadow-lg transition"
-    >
+    <button onClick={onOpen} className="group w-full overflow-hidden rounded-2xl bg-white/90 border border-amber-400 shadow-md hover:shadow-lg transition">
       <div className="relative aspect-4/3 grid grid-cols-2 grid-rows-2 gap-0.5 bg-amber-400">
         {thumbs.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt=""
-            loading="lazy"
-            className="h-full w-full object-cover"
-          />
+          <img key={i} src={src} alt="" loading="lazy" className="h-full w-full object-cover" />
         ))}
-        <div className="absolute inset-0 ring-1 ring-transparent group-hover:ring-amber-300 rounded"></div>
+        <div className="absolute inset-0 ring-1 ring-transparent group-hover:ring-amber-300 rounded" />
       </div>
       <div className="flex items-center justify-between p-3">
         <div className="text-left">
           <div className="font-medium text-[navy]">{title}</div>
           <div className="text-xs text-[navy]/70">{images.length} photos</div>
         </div>
-        <span className="text-xs px-2 py-1 rounded-full bg-amber-400 text-[navy] ring-1 ring-amber-400">
-          Open
-        </span>
+        <span className="text-xs px-2 py-1 rounded-full bg-amber-400 text-[navy] ring-1 ring-amber-400">Open</span>
       </div>
     </button>
   );
@@ -537,8 +441,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
       if (e.key === "Escape") onClose();
       if (mode === "slide") {
         if (e.key === "ArrowRight") setI((x) => (x + 1) % images.length);
-        if (e.key === "ArrowLeft")
-          setI((x) => (x - 1 + images.length) % images.length);
+        if (e.key === "ArrowLeft") setI((x) => (x - 1 + images.length) % images.length);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -548,15 +451,8 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
   if (!open) return null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 flex items-center justify-center"
-      style={{ zIndex: 9999 }}
-    >
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 flex items-center justify-center" style={{ zIndex: 9999 }}>
       {/* no grey backdrop */}
-
       <motion.div
         initial={{ scale: 0.98, y: 8 }}
         animate={{ scale: 1, y: 0 }}
@@ -568,29 +464,18 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
           <div className="font-semibold text-[navy]">{title}</div>
           <div className="flex items-center gap-2">
             <button
-              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${
-                mode === "grid"
-                  ? "bg-amber-100 text-[navy]"
-                  : "hover:bg-amber-100/60 text-[navy]"
-              }`}
+              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "grid" ? "bg-amber-100 text-[navy]" : "hover:bg-amber-100/60 text-[navy]"}`}
               onClick={() => setMode("grid")}
             >
               Grid
             </button>
             <button
-              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${
-                mode === "slide"
-                  ? "bg-amber-100 text-[navy]"
-                  : "hover:bg-amber-100/60 text-[navy]"
-              }`}
+              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "slide" ? "bg-amber-100 text-[navy]" : "hover:bg-amber-100/60 text-[navy]"}`}
               onClick={() => setMode("slide")}
             >
               Slideshow
             </button>
-            <button
-              onClick={onClose}
-              className="ml-1 rounded-lg px-3 py-1.5 text-sm text-[navy] hover:bg-amber-100/60"
-            >
+            <button onClick={onClose} className="ml-1 rounded-lg px-3 py-1.5 text-sm text-[navy] hover:bg-amber-100/60">
               Close
             </button>
           </div>
@@ -603,12 +488,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
               {/* PNG frame behind grid; no grey/rose overlays */}
               <div
                 className="relative mx-auto w-full rounded-2xl"
-                style={{
-                  backgroundImage: `url(${GRID_BG})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                  backgroundSize: "contain",
-                }}
+                style={{ backgroundImage: `url(${GRID_BG})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "contain" }}
               >
                 {/* Pad so thumbs sit inside your frame nicely */}
                 <div className="px-4 py-6">
@@ -622,12 +502,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                         }}
                         className="group relative overflow-hidden rounded-xl bg-white ring-1 ring-amber-400 hover:ring-amber-300 shadow-sm hover:shadow transition"
                       >
-                        <img
-                          src={src}
-                          alt=""
-                          loading="lazy"
-                          className="h-36 w-full object-cover sm:h-40 md:h-44 transition-transform duration-200 group-hover:scale-[1.03]"
-                        />
+                        <img src={src} alt="" loading="lazy" className="h-36 w-full object-cover sm:h-40 md:h-44 transition-transform duration-200 group-hover:scale-[1.03]" />
                       </button>
                     ))}
                   </div>
@@ -639,11 +514,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                 <button
                   onClick={() => setPage((p) => Math.max(0, p - 1))}
                   disabled={page === 0}
-                  className={`rounded-full px-4 py-2 text-[navy] font-bold ring-1 ring-amber-300 ${
-                    page === 0
-                      ? "opacity-40 cursor-not-allowed"
-                      : "bg-amber-100 hover:bg-amber-400"
-                  }`}
+                  className={`rounded-full px-4 py-2 text-[navy] font-bold ring-1 ring-amber-300 ${page === 0 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
                 >
                   ‹ Prev
                 </button>
@@ -653,24 +524,16 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                     <button
                       key={pi}
                       onClick={() => setPage(pi)}
-                      className={`h-2.5 w-2.5 rounded-full ${
-                        pi === page ? "bg-amber-400" : "bg-amber-400 hover:bg-amber-300"
-                      }`}
+                      className={`h-2.5 w-2.5 rounded-full ${pi === page ? "bg-amber-400" : "bg-amber-400 hover:bg-amber-300"}`}
                       aria-label={`Go to page ${pi + 1}`}
                     />
                   ))}
                 </div>
 
                 <button
-                  onClick={() =>
-                    setPage((p) => Math.min(totalPages - 1, p + 1))
-                  }
+                  onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                   disabled={page >= totalPages - 1}
-                  className={`rounded-full px-4 py-2 text-[navy] font-bold ring-1 ring-amber-300 ${
-                    page >= totalPages - 1
-                      ? "opacity-40 cursor-not-allowed"
-                      : "bg-amber-100 hover:bg-amber-400"
-                  }`}
+                  className={`rounded-full px-4 py-2 text-[navy] font-bold ring-1 ring-amber-300 ${page >= totalPages - 1 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
                 >
                   Next ›
                 </button>
@@ -679,16 +542,10 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
           ) : (
             // Slideshow (Pooh colors, centered controls)
             <div className="flex flex-col items-center">
-              <img
-                src={images[i]}
-                alt=""
-                className="mx-auto max-h-[70vh] w-auto rounded-xl shadow ring-1 ring-amber-400"
-              />
+              <img src={images[i]} alt="" className="mx-auto max-h-[70vh] w-auto rounded-xl shadow ring-1 ring-amber-400" />
               <div className="mt-4 flex items-center justify-center gap-6">
                 <button
-                  onClick={() =>
-                    setI((x) => (x - 1 + images.length) % images.length)
-                  }
+                  onClick={() => setI((x) => (x - 1 + images.length) % images.length)}
                   className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-[navy] ring-1 ring-amber-300"
                 >
                   ‹ Prev
@@ -696,10 +553,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                 <div className="text-[navy] font-semibold">
                   {i + 1} / {images.length}
                 </div>
-                <button
-                  onClick={() => setI((x) => (x + 1) % images.length)}
-                  className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-[navy] ring-1 ring-amber-300"
-                >
+                <button onClick={() => setI((x) => (x + 1) % images.length)} className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-[navy] ring-1 ring-amber-300">
                   Next ›
                 </button>
               </div>
@@ -711,10 +565,9 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
   );
 };
 
-/* ---------- Photos (replaces your current Photos) ---------- */
+/* ---------- Photos ---------- */
 const Photos = () => {
   const [openFor, setOpenFor] = useState(null); // 'A' | 'B' | null
-
   const albums = [
     { key: "A", title: "Engagement", images: ASSETS.albumA },
     { key: "B", title: "/italy", images: ASSETS.albumB },
@@ -726,106 +579,79 @@ const Photos = () => {
 
       <div className="grid gap-6 sm:grid-cols-2">
         {albums.map((al) => (
-          <AlbumCard
-            key={al.key}
-            title={al.title}
-            images={al.images}
-            onOpen={() => setOpenFor(al.key)}
-          />
+          <AlbumCard key={al.key} title={al.title} images={al.images} onOpen={() => setOpenFor(al.key)} />
         ))}
       </div>
 
       <AnimatePresence>
-        {albums.map((al) =>
-          openFor === al.key ? (
-            <AlbumModal
-              key={al.key}
-              open
-              title={al.title}
-              images={al.images}
-              onClose={() => setOpenFor(null)}
-            />
-          ) : null,
-        )}
+        {albums.map((al) => (openFor === al.key ? <AlbumModal key={al.key} open title={al.title} images={al.images} onClose={() => setOpenFor(null)} /> : null))}
       </AnimatePresence>
     </section>
   );
 };
 
+/* ---------- OneDrive embed helper ---------- */
+const toOneDriveEmbed = (url) => {
+  // If it's a short 1drv.ms link, append ?embed=1 to hint inline playback.
+  // For best reliability: get the official iframe from OneDrive "Embed".
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("1drv.ms")) {
+      // preserve existing query
+      if (!u.searchParams.has("embed")) u.searchParams.set("embed", "1");
+      return u.toString();
+    }
+  } catch {}
+  return url;
+};
+
 const Videos = () => (
-  <section
-    className="
-      mx-auto max-w-7xl px-6 py-6
-      min-h-[calc(100vh-var(--headerH)-var(--footerH))]
-      flex flex-col justify-center
-    "
-  >
-    <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-6 text-center">
-      Videos
-    </h2>
+  <section className="mx-auto max-w-7xl px-6 py-6 min-h-[calc(100vh-var(--headerH)-var(--footerH))] flex flex-col justify-center">
+    <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-6 text-center">Videos</h2>
 
     <div className="grid gap-8 md:grid-cols-2">
       {[
         "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
         "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
       ].map((src, i) => (
-        <div
-          key={i}
-          className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]"
-        >
+        <div key={i} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]">
           <iframe
-  src={src}
-  className="w-full aspect-video rounded-2xl max-h-[min(38vh,360px)]"
-/* keep tiles short so footer fits */
-  allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-  allowFullScreen
-  loading="lazy"
-/>
+            src={toOneDriveEmbed(src)}
+            className="w-full aspect-video rounded-2xl max-h-[min(38vh,360px)]"
+            // keep tiles short so footer fits
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer"
+          />
         </div>
       ))}
     </div>
   </section>
 );
 
+const Registry = () => {
+  const cols = Math.min(REGISTRY_LINKS.length, 3);
+  const gridColsClass = cols === 1 ? "sm:grid-cols-1" : cols === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3";
 
+  return (
+    <section className="mx-auto max-w-5xl px-4 py-16 text-center bg-transparent">
+      <h2 className="font-serif text-3xl md:text-4xl text-[navy] mb-8 drop-shadow-sm">Wedding Registry</h2>
 
-
-const Registry = () => (
-  <section className="mx-auto max-w-5xl px-4 py-16 text-center bg-transparent">
-    <h2 className="font-serif text-3xl md:text-4xl text-[navy] mb-8 drop-shadow-sm">
-      Wedding Registry
-    </h2>
-
-    {/* Registry Button Grid */}
-    <div
-      className={`grid gap-8 sm:grid-cols-${Math.min(
-        REGISTRY_LINKS.length,
-        3,
-      )} justify-items-center`}
-    >
-      {REGISTRY_LINKS.map((r) => (
-        <a
-          key={r.href}
-          href={r.href}
-          target="_blank"
-          rel="noreferrer"
-          className="flex flex-col items-center justify-center transition-transform hover:scale-105 bg-transparent"
-        >
-          <div className="rounded-2xl overflow-hidden shadow-md border-4 border-[#a48000] bg-wtransparent backdrop-blur-sm p-4 w-48 h-48 flex items-center justify-center hover:shadow-[0_0_20px_#ffd966]">
-            <img
-              src={r.img}
-              alt={`${r.label} Registry`}
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <span className="mt-3 text-[navy] font-semibold text-lg drop-shadow-sm">
-            {r.label}
-          </span>
-        </a>
-      ))}
-    </div>
-  </section>
-);
+      {/* Registry Button Grid (Tailwind can't parse dynamic class names at build-time) */}
+      <div className={`grid gap-8 ${gridColsClass} justify-items-center`}>
+        {REGISTRY_LINKS.map((r) => (
+          <a key={r.href} href={r.href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center transition-transform hover:scale-105 bg-transparent">
+            <div className="rounded-2xl overflow-hidden shadow-md border-4 border-[#a48000] bg-transparent backdrop-blur-sm p-4 w-48 h-48 flex items-center justify-center hover:shadow-[0_0_20px_#ffd966]">
+              <img src={r.img} alt={`${r.label} Registry`} className="w-full h-full object-contain" />
+            </div>
+            <span className="mt-3 text-[navy] font-semibold text-lg drop-shadow-sm">{r.label}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 const tabs = [
   { key: "home", label: "Home", icon: HomeIcon, comp: <HomePage /> },
@@ -841,12 +667,9 @@ const Shell = () => {
   const [tab, setTab] = useState("home");
 
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ "--headerH": "75px", "--footerH": "100px" }}
-    >
+    <div className="min-h-screen flex flex-col" style={{ "--headerH": "75px", "--footerH": "100px" }}>
       {/* Header with tabs */}
-      <header className="h-[75px] sticky top-0 z-30 bg-[#fff64cb3]">
+      <header className="h-[75px] sticky top-0 z-30 bg-[#fff64cb3] backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
           <nav className="flex gap-2">
             {tabs.map((t) => (
@@ -854,9 +677,7 @@ const Shell = () => {
                 key={t.key}
                 onClick={() => setTab(t.key)}
                 className={`px-3 py-1.5 rounded-xl text-sm transition ring-1 ${
-                  tab === t.key
-                    ? "bg-[#DAA520] text-white ring-[#a48000]"
-                    : "bg-white/80 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
+                  tab === t.key ? "bg-[#DAA520] text-white ring-[#a48000]" : "bg-white/80 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
                 }`}
               >
                 <t.icon size={14} className="inline mr-1" />
@@ -870,41 +691,21 @@ const Shell = () => {
       {/* Main content (animated) */}
       <main className="flex-1">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={tab}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-          >
+          <motion.div key={tab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
             {tabs.find((x) => x.key === tab)?.comp}
           </motion.div>
         </AnimatePresence>
       </main>
 
       {/* Footer – fixed height so Videos page can size to viewport */}
-      <footer
-        className="relative border-t border-[#a48000]"
-        style={{ height: "var(--footerH)" }}
-      >
-        <img
-          src={ASSETS.footer}
-          alt=""
-          className="block w-full h-full object-cover select-none pointer-events-none"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 80%)",
-          }}
-        />
+      <footer className="relative border-t border-[#a48000]" style={{ height: "var(--footerH)" }}>
+        <img src={ASSETS.footer} alt="" className="block w-full h-full object-cover select-none pointer-events-none" />
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 80%)" }} />
         <div className="absolute inset-0 flex items-center justify-center px-4" />
       </footer>
     </div>
   );
 };
-
 
 /* ----------------------------------------------------------
    Root
@@ -916,25 +717,14 @@ export default function WeddingWebsite() {
     <div style={{ fontWeight: "bold", color: "navy" }}>
       <GlobalBackground />
 
-      <div className="relative z-10">
+      <div className="relative z-20">
         <AnimatePresence mode="wait">
           {!entered ? (
-            <motion.div
-              key="landing"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
+            <motion.div key="landing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <Landing onEnter={() => setEntered(true)} />
             </motion.div>
           ) : (
-            <motion.div
-              key="site"
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-            >
+            <motion.div key="site" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} transition={{ duration: 1.2, ease: "easeOut" }}>
               <Shell />
             </motion.div>
           )}
