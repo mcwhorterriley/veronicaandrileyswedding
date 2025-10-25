@@ -39,6 +39,7 @@ ASSETS.slideshow = [...ASSETS.albumA, ...ASSETS.albumB].sort(
 
 const REGISTRY_LINKS = [
   {
+    label: "Amazon",
     href: "https://www.amazon.com/wedding/registry/FS3BNV5M1DJC",
     img: "/amazon.png",
   },
@@ -289,21 +290,18 @@ const Landing = ({ onEnter }) => {
     chimeRef.current = a;
   }, []);
 
-  const handleClick = () => {
-    try {
-      chimeRef.current && chimeRef.current.play().catch(() => {});
-    } catch (_) {}
+const handleClick = () => {
+  try { chimeRef.current?.play().catch(() => {}); } catch {}
+  setEntering(true);
+  setFlash(true);
+  setFire(false);
+  requestAnimationFrame(() => setFire(true));
 
-    setEntering(true);
-    setTimeout(() => setFlash(true), 80);
+  // go to the site after ~1.2s; also add a safety fallback
+  setTimeout(() => onEnter(true), 1200);
+  setTimeout(() => onEnter(true), 3000); // safety if first timer got skipped
+};
 
-    setTimeout(() => {
-      setFire(false);
-      requestAnimationFrame(() => setFire(true));
-    }, 100);
-
-    setTimeout(() => onEnter(true), 1900);
-  };
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -656,9 +654,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                       key={pi}
                       onClick={() => setPage(pi)}
                       className={`h-2.5 w-2.5 rounded-full ${
-                        pi === page
-                          ? "bg-amber-4000"
-                          : "bg-amber-400 hover:bg-amber-300"
+                        pi === page ? "bg-amber-400" : "bg-amber-400 hover:bg-amber-300"
                       }`}
                       aria-label={`Go to page ${pi + 1}`}
                     />
@@ -778,13 +774,13 @@ const Videos = () => (
           className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]"
         >
           <iframe
-            src={src}
-            className="w-full aspect-video rounded-2xl
-                       max-h-[min(38vh,360px)]"    // keep tiles short so footer fits
-            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-          />
+  src={src}
+  className="w-full aspect-video rounded-2xl max-h-[min(38vh,360px)]"
+/* keep tiles short so footer fits */
+  allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+  allowFullScreen
+  loading="lazy"
+/>
         </div>
       ))}
     </div>
@@ -844,43 +840,71 @@ const tabs = [
 const Shell = () => {
   const [tab, setTab] = useState("home");
 
- // inside Shell()
-return (
-  <div
-    className="min-h-screen flex flex-col"
-    style={{ "--headerH": "75px", "--footerH": "100px" }} // <— set once
-  >
-    <header className="h-[75px] sticky top-0 z-30 bg-[#fff64cb3]">
-      {/* ... */}
-    </header>
-
-    <main className="flex-1">
-      {/* ... your AnimatePresence ... */}
-    </main>
-
-    <footer
-      className="relative border-t border-[#a48000]"
-      style={{ height: "var(--footerH)" }}                 // <— fixed height
+  return (
+    <div
+      className="min-h-screen flex flex-col"
+      style={{ "--headerH": "75px", "--footerH": "100px" }}
     >
-      <img
-        src={ASSETS.footer}
-        alt=""
-        className="block w-full h-full object-cover select-none pointer-events-none"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 80%)",
-        }}
-      />
-      <div className="absolute inset-0 flex items-center justify-center px-4" />
-    </footer>
-  </div>
-);
+      {/* Header with tabs */}
+      <header className="h-[75px] sticky top-0 z-30 bg-[#fff64cb3]">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+          <nav className="flex gap-2">
+            {tabs.map((t) => (
+              <button
+                key={t.key}
+                onClick={() => setTab(t.key)}
+                className={`px-3 py-1.5 rounded-xl text-sm transition ring-1 ${
+                  tab === t.key
+                    ? "bg-[#DAA520] text-white ring-[#a48000]"
+                    : "bg-white/80 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
+                }`}
+              >
+                <t.icon size={14} className="inline mr-1" />
+                {t.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </header>
 
+      {/* Main content (animated) */}
+      <main className="flex-1">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={tab}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+          >
+            {tabs.find((x) => x.key === tab)?.comp}
+          </motion.div>
+        </AnimatePresence>
+      </main>
+
+      {/* Footer – fixed height so Videos page can size to viewport */}
+      <footer
+        className="relative border-t border-[#a48000]"
+        style={{ height: "var(--footerH)" }}
+      >
+        <img
+          src={ASSETS.footer}
+          alt=""
+          className="block w-full h-full object-cover select-none pointer-events-none"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 80%)",
+          }}
+        />
+        <div className="absolute inset-0 flex items-center justify-center px-4" />
+      </footer>
+    </div>
+  );
 };
+
 
 /* ----------------------------------------------------------
    Root
