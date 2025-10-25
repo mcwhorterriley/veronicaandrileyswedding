@@ -757,7 +757,7 @@ const Photos = () => {
 };
 
 const Videos = () => (
-  <section className="mx-auto max-w-8xl px-50 py-50">
+  <section className="mx-auto max-w-7xl px-12 py-16">
     <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-10 text-center">
       Videos
     </h2>
@@ -776,6 +776,8 @@ const Videos = () => (
             src={src}
             className="w-full aspect-video rounded-2xl"
             allowFullScreen
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
           ></iframe>
         </div>
       ))}
