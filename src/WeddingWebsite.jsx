@@ -757,37 +757,35 @@ const Photos = () => {
 };
 
 const Videos = () => (
-  <section className="mx-auto max-w-7xl px-6 py-12">
-    <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-8 text-center">
+  <section className="mx-auto max-w-7xl px-12 py-16">
+    <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-10 text-center">
       Videos
     </h2>
 
-    <div className="grid gap-8 md:grid-cols-2">
+    {/* Responsive grid with spacing */}
+    <div className="grid gap-10 md:grid-cols-2">
       {[
-        // 👇 Replace these with each video's real embed.aspx link
-        "https://my.microsoftpersonalcontent.com/personal/f11f5828b26f7c89/_layouts/15/embed.aspx?UniqueId=b26f7c89-5828-201f-80f1-2b760a000000&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
-        "https://my.microsoftpersonalcontent.com/personal/f11f5828b26f7c89/_layouts/15/embed.aspx?UniqueId=b26f7c89-5828-201f-80f1-7d750a000000&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
+        "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
+        "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
       ].map((src, i) => (
         <div
           key={i}
           className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]"
         >
-          <div className="relative pb-[56.25%] h-0 overflow-hidden">
-            <iframe
-              src={src}
-              title={`Video ${i + 1}`}
-              frameBorder="0"
-              scrolling="no"
-              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-              allowFullScreen
-              className="absolute top-0 left-0 w-full h-full border-none rounded-2xl"
-            ></iframe>
-          </div>
+          <iframe
+            src={src}
+            className="w-full h-auto aspect-video rounded-2xl"
+            style={{ minHeight: "250px" }}
+            allowFullScreen
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+></iframe>
         </div>
       ))}
     </div>
   </section>
 );
+
 
 
 const Registry = () => (
