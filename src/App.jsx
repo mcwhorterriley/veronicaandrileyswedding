@@ -3,8 +3,10 @@ import WeddingWebsite from "./WeddingWebsite";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white antialiased">
-      <WeddingWebsite />
+    <div className="min-h-screen flex flex-col bg-white antialiased">
+      <main className="grow">
+        <WeddingWebsite />
+      </main>
     </div>
   );
 }

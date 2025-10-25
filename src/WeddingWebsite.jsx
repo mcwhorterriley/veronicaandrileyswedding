@@ -757,13 +757,18 @@ const Photos = () => {
 };
 
 const Videos = () => (
-  <section className="mx-auto max-w-7xl px-12 py-16">
-    <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-10 text-center">
+  <section
+    className="
+      mx-auto max-w-7xl px-6 py-6
+      min-h-[calc(100vh-var(--headerH)-var(--footerH))]
+      flex flex-col justify-center
+    "
+  >
+    <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-6 text-center">
       Videos
     </h2>
 
-    {/* Responsive grid with spacing */}
-    <div className="grid gap-10 md:grid-cols-2">
+    <div className="grid gap-8 md:grid-cols-2">
       {[
         "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
         "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
@@ -774,17 +779,18 @@ const Videos = () => (
         >
           <iframe
             src={src}
-            className="w-full h-auto aspect-video rounded-2xl"
-            style={{ minHeight: "250px" }}
-            allowFullScreen
+            className="w-full aspect-video rounded-2xl
+                       max-h-[min(38vh,360px)]"    // keep tiles short so footer fits
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            allowFullScreen
             loading="lazy"
-></iframe>
+          />
         </div>
       ))}
     </div>
   </section>
 );
+
 
 
 
@@ -838,71 +844,42 @@ const tabs = [
 const Shell = () => {
   const [tab, setTab] = useState("home");
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <header className="h-[75px] sticky top-0 z-30 bg-[#fff64cb3]">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-          <nav className="flex gap-2">
-            {tabs.map((t) => (
-              <button
-                key={t.key}
-                onClick={() => setTab(t.key)}
-                className={`px-3 py-1.5 rounded-xl text-sm transition ring-1 ${
-                  tab === t.key
-                    ? "bg-[#DAA520] text-[#ffffff] ring-[#a48000]"
-                    : "bg-white/80 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
-                }`}
-              >
-                <t.icon size={14} className="inline mr-1" />
-                {t.label}
-              </button>
-            ))}
-          </nav>
-        </div>
-      </header>
-
-      <main className="flex-1">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={tab}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-          >
-            {tabs.find((x) => x.key === tab)?.comp}
-          </motion.div>
-        </AnimatePresence>
-      </main>
-
-
-
-<footer className="relative mt-16 border-t border-[#a48000]">
-  {/* image layer */}
-  <img
-    src={ASSETS.footer}
-    alt=""
-    className="block w-full h-[100px] md:h-[100px] object-cover select-none pointer-events-none"
-  />
-
-  {/* soft fade so the top blends into the page */}
+ // inside Shell()
+return (
   <div
-    aria-hidden
-    className="absolute inset-0 pointer-events-none"
-    style={{
-      background:
-        "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 80%)",
-    }}
-  />
+    className="min-h-screen flex flex-col"
+    style={{ "--headerH": "75px", "--footerH": "100px" }} // <— set once
+  >
+    <header className="h-[75px] sticky top-0 z-30 bg-[#fff64cb3]">
+      {/* ... */}
+    </header>
 
-  {/* content on top */}
-  <div className="absolute inset-0 flex items-center justify-center px-4">
-   
+    <main className="flex-1">
+      {/* ... your AnimatePresence ... */}
+    </main>
+
+    <footer
+      className="relative border-t border-[#a48000]"
+      style={{ height: "var(--footerH)" }}                 // <— fixed height
+    >
+      <img
+        src={ASSETS.footer}
+        alt=""
+        className="block w-full h-full object-cover select-none pointer-events-none"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 80%)",
+        }}
+      />
+      <div className="absolute inset-0 flex items-center justify-center px-4" />
+    </footer>
   </div>
-</footer>
+);
 
-
-    </div>
-  );
 };
 
 /* ----------------------------------------------------------
