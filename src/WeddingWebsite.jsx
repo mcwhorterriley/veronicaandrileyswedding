@@ -16,7 +16,7 @@ const ASSETS = {
   albumB: [
     "/italy/1.jpg", "/italy/2.jpg", "/italy/3.jpg", "/italy/4.jpg", "/italy/5.jpg", "/italy/6.jpg", "/italy/7.jpg", "/italy/8.jpg", "/italy/9.jpg", "/italy/10.jpg", "/italy/11.jpg",
     "/italy/13.jpg", "/italy/28.jpg", "/italy/14.jpg", "/italy/27.jpg", "/italy/15.jpg", "/italy/16.jpg", "/italy/17.jpg", "/italy/18.jpg", "/italy/19.jpg", "/italy/20.jpg", "/italy/21.jpg",
-    "/italy/22.jpg", "/italy/23.jpg", "/italy/24.jpg", "/italy/25.jpg", "/italy/26.jpg", "/italy/27.jpg", "/italy/29.jpg", "/italy/30.jpg", "/italy/31.jpg", "/italy/32.jpg",
+    "/italy/22.jpg", "/italy/23.jpg", "/italy/24.jpg", "/italy/25.jpg", "/italy/26.jpg",  "/italy/29.jpg", "/italy/30.jpg", "/italy/31.jpg", "/italy/32.jpg",
     "/italy/33.jpg", "/italy/34.jpg", "/italy/35.jpg", "/italy/36.jpg", "/italy/37.jpg", "/italy/38.jpg", "/italy/39.jpg", "/italy/40.jpg", "/italy/41.jpg", "/italy/42.jpg",
     "/italy/43.jpg", "/italy/44.jpg", "/italy/45.jpg", "/italy/46.jpg", "/italy/47.jpg", "/italy/48.jpg", "/italy/49.jpg", "/italy/50.jpg", "/italy/51.jpg", "/italy/52.jpg",
     "/italy/53.jpg", "/italy/54.jpg", "/italy/55.jpg", "/italy/56.jpg", "/italy/57.jpg", "/italy/58.jpg", "/italy/59.jpg", "/italy/60.jpg", "/italy/61.jpg", "/italy/62.jpg", "/italy/63.jpg",
@@ -671,7 +671,7 @@ const Shell = () => {
   return (
     <div className="min-h-screen flex flex-col" style={{ "--headerH": "75px", "--footerH": "100px" }}>
       {/* Header with tabs */}
-      <header className="h-[75px] sticky top-0 z-30 bg-[#fff64cb3] backdrop-blur-sm">
+      <header className="h-[75px] sticky top-0 z-30 bg-gold backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
           <nav className="flex gap-2">
             {tabs.map((t) => (
