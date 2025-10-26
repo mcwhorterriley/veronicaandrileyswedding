@@ -628,7 +628,7 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
       <div className="relative aspect-video w-full rounded-t-2xl bg-amber-100/60">
         {/* Skeleton (honey gradient) */}
         {loading && !failed && (
-          <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-amber-100/70 to-amber-200/70" />
+          <div className="absolute inset-0 animate-pulse bg-linear-to-br from-amber-100/70 to-amber-200/70" />
         )}
 
         {/* Poster fallback */}
@@ -636,13 +636,12 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
           <button
             onClick={() => window.open(src, "_blank", "noopener,noreferrer")}
             className="absolute inset-0 flex items-center justify-center group"
-            aria-label={`Open ${title || 'video'} in OneDrive`}
           >
             {/* Poster image if provided */}
             {poster ? (
               <img src={poster} alt="" className="absolute inset-0 w-full h-full object-cover opacity-80" />
             ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 to-amber-200/70" />
+              <div className="absolute inset-0 bg-linear-to-br from-amber-50/80 to-amber-200/70" />
             )}
             {/* Play overlay */}
             <div className="relative flex items-center gap-3 rounded-full px-5 py-3 bg-amber-50/90 group-hover:bg-white shadow">
