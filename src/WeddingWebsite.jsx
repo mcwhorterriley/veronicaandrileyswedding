@@ -349,7 +349,7 @@ const MiniSlideshow = ({ imgs = [], interval = 7000 }) => {
   if (!imgs.length) return null;
 
   return (
-    <div className="relative w-full max-w-xl md:max-w-2xl mx-auto overflow-hidden rounded-2xl ring-1 ring-[#a48000]/50 shadow-sm bg-white/80">
+    <div className="relative w-full max-w-xl md:max-w-2xl mx-auto overflow-hidden rounded-2xl ring-1 ring-[#a48000]/50 shadow-sm bg-amber-50/85">
       <div className="w-full h-56 sm:h-64 md:h-80">
         <AnimatePresence mode="wait">
           <motion.img
@@ -389,23 +389,27 @@ const HomePage = () => (
   <section className="mx-auto max-w-6xl px-4 py-12">
     <div className="grid gap-10 items-start md:grid-cols-2">
       {/* LEFT: title, subtitle, body */}
-      <div className="space-y-4">
-        <h1 className="font-serif text-3xl md:text-4xl tracking-tight text-honeybrown">The Future Mrs. and Mr. McWhorter Welcome You To,</h1>
-        <p className="text-caramel/90 italic">Una Settimana d’Amore</p>
-        <p className="text-honeybrown leading-relaxed max-w-prose">
-  Ciao, <em>Una Settimana d’Amore</em>, or <span className="italic">A Week of Love</span>. Join us as we begin our journey through Italy.  
-  Our adventure started in <strong>Roma</strong>, where we spent four incredible days getting lost in winding streets and being amazed by the breathtaking architecture.  
-  From there, Veronica and I traveled to <strong>Florence</strong>, a city full of charm and unforgettable moments. Between exploring local shops and taking an amazing cooking class, we learned how to make <em>fettuccine</em>, <em>ravioli</em>, and <em>tiramisu</em> completely from scratch.  
-  Last was <strong>Venice</strong>, a city that no movie could ever truly capture. There were plenty of stairs and no quick way to get anywhere, but every moment was worth it. From designing our own masks and finding a hidden tower to visiting the Murano Glass Factory, it was nothing short of magical.  
-  Still, nothing could compare to <strong>July 4th</strong>, when <strong>Veronica LeBlanc said “yes”</strong> to being my wife.  
-  Click through to experience our journey — enjoy the slideshow or watch <em>Italy: The Movie</em>.  Buon viaggio!
-</p>
+      <div className="space-y-4 rounded-2xl bg-amber-50/85 backdrop-blur-sm ring-1 ring-amber-200 shadow p-6">
+        <h1 className="font-serif text-3xl md:text-4xl tracking-tight text-navy-900">
+          The Future Mrs. and Mr. McWhorter Welcome You To,
+        </h1>
+        <p className="text-amber-700/90 italic">Una Settimana d’Amore</p>
+        <p className="text-stone-800 leading-relaxed max-w-prose">
+          Ciao, <em>Una Settimana d’Amore</em>, or <span className="italic">A Week of Love</span>. Join us as we begin our journey through Italy.
+          Our adventure started in <strong>Roma</strong>, where we spent four incredible days getting lost in winding streets and being amazed by the breathtaking architecture.
+          From there, Veronica and I traveled to <strong>Florence</strong>, a city full of charm and unforgettable moments. Between exploring local shops and taking an amazing cooking class, we learned how to make <em>fettuccine</em>, <em>ravioli</em>, and <em>tiramisu</em> completely from scratch.
+          Last was <strong>Venice</strong>, a city that no movie could ever truly capture. There were plenty of stairs and no quick way to get anywhere, but every moment was worth it. From designing our own masks and finding a hidden tower to visiting the Murano Glass Factory, it was nothing short of magical.
+          Still, nothing could compare to <strong>July 4th</strong>, when <strong>Veronica LeBlanc said “yes”</strong> to being my wife.
+          Click through to experience our journey — enjoy the slideshow or watch <em>Italy: The Movie</em>.  Buon viaggio!
+        </p>
       </div>
 
       {/* RIGHT: slideshow preview */}
       <div className="md:justify-self-end">
-        <MiniSlideshow imgs={ASSETS.slideshow} interval={7000} />
-        <div className="mt-3 text-center text-sm text-caramel/80">See Photos for more</div>
+        <div className="rounded-2xl overflow-hidden ring-1 ring-amber-200 shadow bg-amber-50/80 backdrop-blur-sm">
+          <MiniSlideshow imgs={ASSETS.slideshow} interval={7000} />
+        </div>
+        <div className="mt-3 text-center text-sm text-amber-700/80">See Photos for more</div>
       </div>
     </div>
   </section>
@@ -415,7 +419,7 @@ const HomePage = () => (
 const AlbumCard = ({ title, images = [], onOpen }) => {
   const thumbs = images.slice(0, 4);
   return (
-    <button onClick={onOpen} className="group w-full overflow-hidden rounded-2xl bg-white/90 border border-amber-400 shadow-md hover:shadow-lg transition">
+    <button onClick={onOpen} className="group w-full overflow-hidden rounded-2xl bg-amber-50/85 border border-amber-400 shadow-md hover:shadow-lg transition">
       <div className="relative aspect-4/3 grid grid-cols-2 grid-rows-2 gap-0.5 bg-amber-400">
         {thumbs.map((src, i) => (
           <img key={i} src={src} alt="Album thumbnail" loading="lazy" className="h-full w-full object-cover" />
@@ -424,10 +428,10 @@ const AlbumCard = ({ title, images = [], onOpen }) => {
       </div>
       <div className="flex items-center justify-between p-3">
         <div className="text-left">
-          <div className="font-medium text-honeybrown">{title}</div>
-          <div className="text-xs text-caramel/80">{images.length} photos</div>
+          <div className="font-medium text-amber-800">{title}</div>
+          <div className="text-xs text-amber-700/80">{images.length} photos</div>
         </div>
-        <span className="text-xs px-2 py-1 rounded-full bg-amber-400 text-honeybrown ring-1 ring-amber-400">Open</span>
+        <span className="text-xs px-2 py-1 rounded-full bg-amber-400 text-amber-800 ring-1 ring-amber-400">Open</span>
       </div>
     </button>
   );
@@ -471,21 +475,21 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
       >
         {/* Header (honey + navy) */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-amber-400 bg-amber-400">
-          <div className="font-semibold text-honeybrown">{title}</div>
+          <div className="font-semibold text-amber-800">{title}</div>
           <div className="flex items-center gap-2">
             <button
-              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "grid" ? "bg-amber-100 text-honeybrown" : "hover:bg-amber-100/60 text-honeybrown"}`}
+              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "grid" ? "bg-amber-100 text-amber-800" : "hover:bg-amber-100/60 text-amber-800"}`}
               onClick={() => setMode("grid")}
             >
               Grid
             </button>
             <button
-              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "slide" ? "bg-amber-100 text-honeybrown" : "hover:bg-amber-100/60 text-honeybrown"}`}
+              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "slide" ? "bg-amber-100 text-amber-800" : "hover:bg-amber-100/60 text-amber-800"}`}
               onClick={() => setMode("slide")}
             >
               Slideshow
             </button>
-            <button onClick={onClose} className="ml-1 rounded-lg px-3 py-1.5 text-sm text-honeybrown hover:bg-amber-100/60">
+            <button onClick={onClose} className="ml-1 rounded-lg px-3 py-1.5 text-sm text-amber-800 hover:bg-amber-100/60">
               Close
             </button>
           </div>
@@ -510,7 +514,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                           setI(start + idx);
                           setMode("slide");
                         }}
-                        className="group relative overflow-hidden rounded-xl bg-white ring-1 ring-amber-400 hover:ring-amber-300 shadow-sm hover:shadow transition"
+                        className="group relative overflow-hidden rounded-xl bg-amber-50/90 ring-1 ring-amber-400 hover:ring-amber-300 shadow-sm hover:shadow transition"
                       >
                         <img src={src} alt="Gallery thumbnail" loading="lazy" className="h-36 w-full object-cover sm:h-40 md:h-44 transition-transform duration-200 group-hover:scale-[1.03]" />
                       </button>
@@ -524,7 +528,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                 <button
                   onClick={() => setPage((p) => Math.max(0, p - 1))}
                   disabled={page === 0}
-                  className={`rounded-full px-4 py-2 text-honeybrown font-bold ring-1 ring-amber-300 ${page === 0 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
+                  className={`rounded-full px-4 py-2 text-amber-800 font-bold ring-1 ring-amber-300 ${page === 0 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
                 >
                   ‹ Prev
                 </button>
@@ -543,7 +547,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                   disabled={page >= totalPages - 1}
-                  className={`rounded-full px-4 py-2 text-honeybrown font-bold ring-1 ring-amber-300 ${page >= totalPages - 1 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
+                  className={`rounded-full px-4 py-2 text-amber-800 font-bold ring-1 ring-amber-300 ${page >= totalPages - 1 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
                 >
                   Next ›
                 </button>
@@ -556,14 +560,14 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
               <div className="mt-4 flex items-center justify-center gap-6">
                 <button
                   onClick={() => setI((x) => (x - 1 + images.length) % images.length)}
-                  className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-honeybrown ring-1 ring-amber-300"
+                  className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-amber-800 ring-1 ring-amber-300"
                 >
                   ‹ Prev
                 </button>
-                <div className="text-honeybrown font-semibold">
+                <div className="text-amber-800 font-semibold">
                   {i + 1} / {images.length}
                 </div>
-                <button onClick={() => setI((x) => (x + 1) % images.length)} className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-honeybrown ring-1 ring-amber-300">
+                <button onClick={() => setI((x) => (x + 1) % images.length)} className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-amber-800 ring-1 ring-amber-300">
                   Next ›
                 </button>
               </div>
@@ -585,7 +589,7 @@ const Photos = () => {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
-      <h2 className="font-serif text-3xl text-honeybrown font-bold mb-6">Photos</h2>
+      <h2 className="font-serif text-3xl text-amber-800 font-bold mb-6">Photos</h2>
 
       <div className="grid gap-6 sm:grid-cols-2">
         {albums.map((al) => (
@@ -624,7 +628,7 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
       <div className="relative aspect-video w-full rounded-t-2xl bg-amber-100/60">
         {/* Skeleton (honey gradient) */}
         {loading && !failed && (
-          <div className="absolute inset-0 animate-pulse bg-linear-to-br from-amber-100/70 to-amber-200/70" />
+          <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-amber-100/70 to-amber-200/70" />
         )}
 
         {/* Poster fallback */}
@@ -638,14 +642,14 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
             {poster ? (
               <img src={poster} alt="" className="absolute inset-0 w-full h-full object-cover opacity-80" />
             ) : (
-              <div className="absolute inset-0 bg-linear-to-br from-amber-50/80 to-amber-200/70" />
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 to-amber-200/70" />
             )}
             {/* Play overlay */}
             <div className="relative flex items-center gap-3 rounded-full px-5 py-3 bg-amber-50/90 group-hover:bg-white shadow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-honeybrown">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-amber-800">
                 <path d="M8 5v14l11-7z" />
               </svg>
-              <span className="text-honeybrown font-semibold">Open in OneDrive</span>
+              <span className="text-amber-800 font-semibold">Open in OneDrive</span>
             </div>
           </button>
         )}
@@ -673,7 +677,7 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
           <div className="absolute right-3 top-3">
             <button
               onClick={() => window.open(src, "_blank", "noopener,noreferrer")}
-              className="rounded-full bg-amber-50/90 hover:bg-white px-3 py-1 text-xs font-semibold text-honeybrown shadow"
+              className="rounded-full bg-amber-50/90 hover:bg-white px-3 py-1 text-xs font-semibold text-amber-800 shadow"
             >
               Open in OneDrive
             </button>
@@ -683,7 +687,7 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
 
       {/* Meta (no title — OneDrive shows filename) */}
       <div className="p-4 text-center bg-amber-100/60">
-        {desc && <p className="text-sm text-honeybrown/90">{desc}</p>}
+        {desc && <p className="text-sm text-amber-800/90">{desc}</p>}
         {failed && (
           <div className="mt-3 text-xs text-caramel/70">
             Having trouble embedding large files from OneDrive. The button above will open it reliably.
@@ -697,7 +701,7 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
 const Videos = () => {
   const videoData = [
     {
-      src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
+      src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0" ,
       desc: "A 2½‑hour movie of our trip around Roma, Florence, and Venice — culminating in the big moment on July 4th!",
       // Prefer external for super‑long files to avoid flaky embeds
       preferExternal: true,
@@ -773,7 +777,7 @@ const Registry = () => {
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-16 text-center bg-transparent">
-      <h2 className="font-serif text-3xl md:text-4xl text-honeybrown mb-8 drop-shadow-sm">Wedding Registry</h2>
+      <h2 className="font-serif text-3xl md:text-4xl text-amber-800 mb-8 drop-shadow-sm">Wedding Registry</h2>
 
       {/* Registry Button Grid (Tailwind can't parse dynamic class names at build-time) */}
       <div className={`grid gap-8 ${gridColsClass} justify-items-center`}>
@@ -782,7 +786,7 @@ const Registry = () => {
             <div className="rounded-2xl overflow-hidden shadow-md border-4 border-[#a48000] bg-transparent backdrop-blur-sm p-4 w-48 h-48 flex items-center justify-center hover:shadow-[0_0_20px_#ffd966]">
               <img src={r.img} alt={`${r.label} Registry`} className="w-full h-full object-contain" />
             </div>
-            <span className="mt-3 text-honeybrown font-semibold text-lg drop-shadow-sm">{r.label}</span>
+            <span className="mt-3 text-amber-800 font-semibold text-lg drop-shadow-sm">{r.label}</span>
           </a>
         ))}
       </div>
@@ -814,7 +818,7 @@ const Shell = () => {
                 key={t.key}
                 onClick={() => setTab(t.key)}
                 className={`px-3 py-1.5 rounded-xl text-sm transition ring-1 ${
-                  tab === t.key ? "bg-[#DAA520] text-white ring-[#a48000]" : "bg-white/80 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
+                  tab === t.key ? "bg-[#DAA520] text-white ring-[#a48000]" : "bg-amber-50/85 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
                 }`}
                 aria-current={tab === t.key ? "page" : undefined}
               >
