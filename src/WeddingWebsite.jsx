@@ -388,8 +388,13 @@ const HomePage = () => (
         <h1 className="font-serif text-3xl md:text-4xl tracking-tight text-[navy]">The Future Mrs. and Mr. McWhorter Welcome You To,</h1>
         <p className="text-[navy]/80 italic">Una Settimana d’Amore</p>
         <p className="text-[navy] leading-relaxed max-w-prose">
-          Una Settimana d’Amore, or A Week of Love. Join us as we begin our Journey through Italy. Starting off in Roma, we spent four beautiful days getting lost in the streets and being astonished by all of the draw dropping architecture. From Roma, Veronica and I were off to the city of Florence. Florence was quite the experience. From shopping to our amazing cooking class where we learned how to make fettuccini, ravioli, and tiramisu from scratch! Last up, Venice. A city that movies don't do justice. Sure, there were hundreds of stairs and by no means, no quick transportation. From the mask designing, the hidden tower, and seeing the Murano Glass Factory. Nothing could compare to July 4th when Veronica LeBlanc said yes to being my wife. Click through and experience our journey with us. You can sing along a slideshow or see Italy the Movie. If you see this, we love you and cannot wait to celebrate with you.
-        </p>
+  Ciao, <em>Una Settimana d’Amore</em>, or <span className="italic">A Week of Love</span>. Join us as we begin our journey through Italy.  
+  Our adventure started in <strong>Roma</strong>, where we spent four incredible days getting lost in winding streets and being amazed by the breathtaking architecture.  
+  From there, Veronica and I traveled to <strong>Florence</strong>, a city full of charm and unforgettable moments. Between exploring local shops and taking an amazing cooking class, we learned how to make <em>fettuccine</em>, <em>ravioli</em>, and <em>tiramisu</em> completely from scratch.  
+  Last was <strong>Venice</strong>, a city that no movie could ever truly capture. There were plenty of stairs and no quick way to get anywhere, but every moment was worth it. From designing our own masks and finding a hidden tower to visiting the Murano Glass Factory, it was nothing short of magical.  
+  Still, nothing could compare to <strong>July 4th</strong>, when <strong>Veronica LeBlanc said “yes”</strong> to being my wife.  
+  Click through to experience our journey — enjoy the slideshow or watch <em>Italy: The Movie</em>.  Buon viaggio!
+</p>
       </div>
 
       {/* RIGHT: slideshow preview */}
