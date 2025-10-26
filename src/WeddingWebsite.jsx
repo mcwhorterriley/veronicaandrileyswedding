@@ -613,6 +613,8 @@ const Videos = () => (
       {[
         "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
         "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
+        "https://1drv.ms/v/c/f11f5828b26f7c89/EQd4nhDN5PdBlewkzUPq1PcBNusY1aN68EwT97T8O_KizA?e=LIc0PY",
+        "https://1drv.ms/v/c/f11f5828b26f7c89/ERnWb6Ej3TRClCH384Te9JEB08byMFubegChjOxrGcTo1Q?e=yZQO0e"
       ].map((src, i) => (
         <div key={i} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]">
           <iframe
