@@ -385,9 +385,9 @@ const HomePage = () => (
     <div className="grid gap-10 items-start md:grid-cols-2">
       {/* LEFT: title, subtitle, body */}
       <div className="space-y-4">
-        <h1 className="font-serif text-3xl md:text-4xl tracking-tight text-[navy]">The Future Mrs. and Mr. McWhorter Welcome You To,</h1>
-        <p className="text-[navy]/80 italic">Una Settimana d’Amore</p>
-        <p className="text-[navy] leading-relaxed max-w-prose">
+        <h1 className="font-serif text-3xl md:text-4xl tracking-tight text-honeybrown">The Future Mrs. and Mr. McWhorter Welcome You To,</h1>
+        <p className="text-caramel/90 italic">Una Settimana d’Amore</p>
+        <p className="text-honeybrown leading-relaxed max-w-prose">
   Ciao, <em>Una Settimana d’Amore</em>, or <span className="italic">A Week of Love</span>. Join us as we begin our journey through Italy.  
   Our adventure started in <strong>Roma</strong>, where we spent four incredible days getting lost in winding streets and being amazed by the breathtaking architecture.  
   From there, Veronica and I traveled to <strong>Florence</strong>, a city full of charm and unforgettable moments. Between exploring local shops and taking an amazing cooking class, we learned how to make <em>fettuccine</em>, <em>ravioli</em>, and <em>tiramisu</em> completely from scratch.  
@@ -400,7 +400,7 @@ const HomePage = () => (
       {/* RIGHT: slideshow preview */}
       <div className="md:justify-self-end">
         <MiniSlideshow imgs={ASSETS.slideshow} interval={7000} />
-        <div className="mt-3 text-center text-sm text-[navy]/70">See Photos for more</div>
+        <div className="mt-3 text-center text-sm text-caramel/80">See Photos for more</div>
       </div>
     </div>
   </section>
@@ -419,10 +419,10 @@ const AlbumCard = ({ title, images = [], onOpen }) => {
       </div>
       <div className="flex items-center justify-between p-3">
         <div className="text-left">
-          <div className="font-medium text-[navy]">{title}</div>
-          <div className="text-xs text-[navy]/70">{images.length} photos</div>
+          <div className="font-medium text-honeybrown">{title}</div>
+          <div className="text-xs text-caramel/80">{images.length} photos</div>
         </div>
-        <span className="text-xs px-2 py-1 rounded-full bg-amber-400 text-[navy] ring-1 ring-amber-400">Open</span>
+        <span className="text-xs px-2 py-1 rounded-full bg-amber-400 text-honeybrown ring-1 ring-amber-400">Open</span>
       </div>
     </button>
   );
@@ -466,21 +466,21 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
       >
         {/* Header (honey + navy) */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-amber-400 bg-amber-400">
-          <div className="font-semibold text-[navy]">{title}</div>
+          <div className="font-semibold text-honeybrown">{title}</div>
           <div className="flex items-center gap-2">
             <button
-              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "grid" ? "bg-amber-100 text-[navy]" : "hover:bg-amber-100/60 text-[navy]"}`}
+              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "grid" ? "bg-amber-100 text-honeybrown" : "hover:bg-amber-100/60 text-honeybrown"}`}
               onClick={() => setMode("grid")}
             >
               Grid
             </button>
             <button
-              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "slide" ? "bg-amber-100 text-[navy]" : "hover:bg-amber-100/60 text-[navy]"}`}
+              className={`px-3 py-1.5 rounded-lg text-sm ring-1 ring-amber-400 ${mode === "slide" ? "bg-amber-100 text-honeybrown" : "hover:bg-amber-100/60 text-honeybrown"}`}
               onClick={() => setMode("slide")}
             >
               Slideshow
             </button>
-            <button onClick={onClose} className="ml-1 rounded-lg px-3 py-1.5 text-sm text-[navy] hover:bg-amber-100/60">
+            <button onClick={onClose} className="ml-1 rounded-lg px-3 py-1.5 text-sm text-honeybrown hover:bg-amber-100/60">
               Close
             </button>
           </div>
@@ -519,7 +519,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                 <button
                   onClick={() => setPage((p) => Math.max(0, p - 1))}
                   disabled={page === 0}
-                  className={`rounded-full px-4 py-2 text-[navy] font-bold ring-1 ring-amber-300 ${page === 0 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
+                  className={`rounded-full px-4 py-2 text-honeybrown font-bold ring-1 ring-amber-300 ${page === 0 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
                 >
                   ‹ Prev
                 </button>
@@ -538,7 +538,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                   disabled={page >= totalPages - 1}
-                  className={`rounded-full px-4 py-2 text-[navy] font-bold ring-1 ring-amber-300 ${page >= totalPages - 1 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
+                  className={`rounded-full px-4 py-2 text-honeybrown font-bold ring-1 ring-amber-300 ${page >= totalPages - 1 ? "opacity-40 cursor-not-allowed" : "bg-amber-100 hover:bg-amber-400"}`}
                 >
                   Next ›
                 </button>
@@ -551,14 +551,14 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
               <div className="mt-4 flex items-center justify-center gap-6">
                 <button
                   onClick={() => setI((x) => (x - 1 + images.length) % images.length)}
-                  className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-[navy] ring-1 ring-amber-300"
+                  className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-honeybrown ring-1 ring-amber-300"
                 >
                   ‹ Prev
                 </button>
-                <div className="text-[navy] font-semibold">
+                <div className="text-honeybrown font-semibold">
                   {i + 1} / {images.length}
                 </div>
-                <button onClick={() => setI((x) => (x + 1) % images.length)} className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-[navy] ring-1 ring-amber-300">
+                <button onClick={() => setI((x) => (x + 1) % images.length)} className="rounded-full bg-amber-100 px-4 py-2 shadow hover:bg-amber-400 font-bold text-honeybrown ring-1 ring-amber-300">
                   Next ›
                 </button>
               </div>
@@ -580,7 +580,7 @@ const Photos = () => {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
-      <h2 className="font-serif text-3xl text-[navy] font-bold mb-6">Photos</h2>
+      <h2 className="font-serif text-3xl text-honeybrown font-bold mb-6">Photos</h2>
 
       <div className="grid gap-6 sm:grid-cols-2">
         {albums.map((al) => (
@@ -610,32 +610,63 @@ const toOneDriveEmbed = (url) => {
   return url;
 };
 
-const Videos = () => (
-  <section className="mx-auto max-w-7xl px-6 py-6 min-h-[calc(100vh-var(--headerH)-var(--footerH))] flex flex-col justify-center">
-    <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-6 text-center">Videos</h2>
+const Videos = () => {
+  const videoData = [
+    {
+      src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
+      title: "The Italian Proposal",
+      desc: "A 2 1/2 hour movie of our trip around Roma, Florence, and Venice — culminating in the big moment on July 4th!",
+    },
+    {
+      src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
+      title: "",
+      desc: "A Magical Slideshow of our Trip, coming in around an hour and a half.",
+    },
+    {
+      src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQZ1m-hI900QpQh9_OE3vSRAYQ-BB3mMFcupu5nzqK2ces?",
+      title: "The Propsal",
+      desc: "See me embarass myself trying to propose, and Veronica's surprised reaction!",
+    },
+    {
+      src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQwcVVsoCMtSYAgPsDKk6UJAUiBCvgDfeMEsikydtkbs6Y",
+      title: "Quick Roundup: The Trip",
+      desc: "A quick tik tok compiled of some highlights from our trip.",
+    },
+  ];
 
-    <div className="grid gap-8 md:grid-cols-2">
-      {[
-        "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
-        "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
-        "https://1drv.ms/v/c/f11f5828b26f7c89/IQQZ1m-hI900QpQh9_OE3vSRAYQ-BB3mMFcupu5nzqK2ces?",
-        "https://1drv.ms/v/c/f11f5828b26f7c89/IQQwcVVsoCMtSYAgPsDKk6UJAUiBCvgDfeMEsikydtkbs6Y"
-      ].map((src, i) => (
-        <div key={i} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]">
-          <iframe
-            src={toOneDriveEmbed(src)}
-            className="w-full aspect-video rounded-2xl max-h-[min(38vh,360px)]"
-            // keep tiles short so footer fits
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer"
-          />
-        </div>
-      ))}
-    </div>
-  </section>
-);
+  return (
+    <section className="mx-auto max-w-7xl px-6 py-10 min-h-[calc(100vh-var(--headerH)-var(--footerH))] flex flex-col justify-center">
+      <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-8 text-center">
+        Videos
+      </h2>
+
+      <div className="grid gap-10 md:grid-cols-2">
+        {videoData.map((v, i) => (
+          <div
+            key={i}
+            className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]"
+          >
+            <iframe
+              src={toOneDriveEmbed(v.src)}
+              className="w-full aspect-video rounded-t-2xl max-h-[min(38vh,360px)]"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer"
+              title={v.title}
+            />
+            <div className="p-4 text-center">
+              <h3 className="text-lg font-semibold text-honeybrown mb-2">
+                {v.title}
+              </h3>
+              <p className="text-sm text-caramel/90">{v.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 const Registry = () => {
   const cols = Math.min(REGISTRY_LINKS.length, 3);
@@ -643,7 +674,7 @@ const Registry = () => {
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-16 text-center bg-transparent">
-      <h2 className="font-serif text-3xl md:text-4xl text-[navy] mb-8 drop-shadow-sm">Wedding Registry</h2>
+      <h2 className="font-serif text-3xl md:text-4xl text-honeybrown mb-8 drop-shadow-sm">Wedding Registry</h2>
 
       {/* Registry Button Grid (Tailwind can't parse dynamic class names at build-time) */}
       <div className={`grid gap-8 ${gridColsClass} justify-items-center`}>
@@ -652,7 +683,7 @@ const Registry = () => {
             <div className="rounded-2xl overflow-hidden shadow-md border-4 border-[#a48000] bg-transparent backdrop-blur-sm p-4 w-48 h-48 flex items-center justify-center hover:shadow-[0_0_20px_#ffd966]">
               <img src={r.img} alt={`${r.label} Registry`} className="w-full h-full object-contain" />
             </div>
-            <span className="mt-3 text-[navy] font-semibold text-lg drop-shadow-sm">{r.label}</span>
+            <span className="mt-3 text-honeybrown font-semibold text-lg drop-shadow-sm">{r.label}</span>
           </a>
         ))}
       </div>
@@ -721,7 +752,7 @@ export default function WeddingWebsite() {
   const [entered, setEntered] = useState(false);
 
   return (
-    <div style={{ fontWeight: "bold", color: "navy" }}>
+    <div style="text-caramel font-semibold">
       <GlobalBackground />
 
       <div className="relative z-20">
