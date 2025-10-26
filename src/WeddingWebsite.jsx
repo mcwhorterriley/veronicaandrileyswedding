@@ -703,9 +703,7 @@ const Videos = () => {
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0" ,
       desc: "A 2½‑hour movie of our trip around Roma, Florence, and Venice — culminating in the big moment on July 4th!",
-      // Prefer external for super‑long files to avoid flaky embeds
-      preferExternal: true,
-    },
+      },
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
       desc: "A magical slideshow of our trip (about 90 minutes).",
