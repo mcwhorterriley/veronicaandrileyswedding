@@ -612,19 +612,19 @@ const toOneDriveEmbed = (url) => {
   return url;
 };
 
-// ---------- Video Card with graceful fallback ----------
+// ---------- Video Card with graceful fallback (honey look, no titles) ----------
 const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
   const [useEmbed, setUseEmbed] = useState(!preferExternal);
   const [failed, setFailed] = useState(false);
   const [loading, setLoading] = useState(useEmbed);
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]">
+    <div className="bg-[#ffd27a]/40 backdrop-blur-[2px] rounded-2xl shadow-lg overflow-hidden border border-amber-400 ring-1 ring-amber-300">
       {/* Media area */}
-      <div className="relative aspect-video w-full rounded-t-2xl bg-[#0f0f0f]">
-        {/* Skeleton */}
+      <div className="relative aspect-video w-full rounded-t-2xl bg-amber-100/60">
+        {/* Skeleton (honey gradient) */}
         {loading && !failed && (
-          <div className="absolute inset-0 animate-pulse bg-linear-to-br from-[#1c1c1c] to-[#2a2a2a]" />
+          <div className="absolute inset-0 animate-pulse bg-linear-to-br from-amber-100/70 to-amber-200/70" />
         )}
 
         {/* Poster fallback */}
@@ -636,12 +636,12 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
           >
             {/* Poster image if provided */}
             {poster ? (
-              <img src={poster} alt="" className="absolute inset-0 w-full h-full object-cover opacity-70" />
+              <img src={poster} alt="" className="absolute inset-0 w-full h-full object-cover opacity-80" />
             ) : (
-              <div className="absolute inset-0 bg-linear-to-br from-[#141414] to-[#2b2b2b]" />
+              <div className="absolute inset-0 bg-linear-to-br from-amber-50/80 to-amber-200/70" />
             )}
             {/* Play overlay */}
-            <div className="relative flex items-center gap-3 rounded-full px-5 py-3 bg-white/90 group-hover:bg-white shadow">
+            <div className="relative flex items-center gap-3 rounded-full px-5 py-3 bg-amber-50/90 group-hover:bg-white shadow">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-honeybrown">
                 <path d="M8 5v14l11-7z" />
               </svg>
@@ -668,12 +668,12 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
           />
         )}
 
-        {/* Top-right toggle to open externally if embed is stubborn */}
+        {/* Top-right external button */}
         {useEmbed && !failed && (
           <div className="absolute right-3 top-3">
             <button
               onClick={() => window.open(src, "_blank", "noopener,noreferrer")}
-              className="rounded-full bg-white/90 hover:bg-white px-3 py-1 text-xs font-semibold text-honeybrown shadow"
+              className="rounded-full bg-amber-50/90 hover:bg-white px-3 py-1 text-xs font-semibold text-honeybrown shadow"
             >
               Open in OneDrive
             </button>
@@ -681,10 +681,9 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
         )}
       </div>
 
-      {/* Meta */}
-      <div className="p-4 text-center">
-        <h3 className="text-lg font-semibold text-honeybrown mb-2">{title}</h3>
-        <p className="text-sm text-caramel/90">{desc}</p>
+      {/* Meta (no title — OneDrive shows filename) */}
+      <div className="p-4 text-center bg-amber-100/60">
+        {desc && <p className="text-sm text-honeybrown/90">{desc}</p>}
         {failed && (
           <div className="mt-3 text-xs text-caramel/70">
             Having trouble embedding large files from OneDrive. The button above will open it reliably.
@@ -696,6 +695,40 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
 };
 
 const Videos = () => {
+  const videoData = [
+    {
+      src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
+      desc: "A 2½‑hour movie of our trip around Roma, Florence, and Venice — culminating in the big moment on July 4th!",
+      // Prefer external for super‑long files to avoid flaky embeds
+      preferExternal: true,
+    },
+    {
+      src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
+      desc: "A magical slideshow of our trip (about 90 minutes).",
+    },
+    {
+      src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQZ1m-hI900QpQh9_OE3vSRAYQ-BB3mMFcupu5nzqK2ces?",
+      desc: "See me embarrass myself trying to propose, and Veronica's surprised reaction!",
+    },
+    {
+      src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQwcVVsoCMtSYAgPsDKk6UJAUiBCvgDfeMEsikydtkbs6Y",
+      desc: "A quick TikTok‑style compilation of highlights from our trip.",
+    },
+  ];
+
+  return (
+    <section className="mx-auto max-w-7xl px-6 py-10 min-h-[calc(100vh-var(--headerH)-var(--footerH))] flex flex-col justify-center">
+      <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-8 text-center">Videos</h2>
+
+      <div className="grid gap-10 md:grid-cols-2">
+        {videoData.map((v, i) => (
+          <VideoCard key={i} src={v.src} title={v.title} desc={v.desc} poster={v.poster} preferExternal={v.preferExternal} />
+        ))}
+      </div>
+    </section>
+  );
+};
+ () => {
   const videoData = [
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
