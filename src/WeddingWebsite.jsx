@@ -14,7 +14,7 @@ const ASSETS = {
     "/ePhotos/1.jpg", "/ePhotos/2.jpg", "/ePhotos/3.jpg", "/ePhotos/4.jpg", "/ePhotos/5.jpg", "/ePhotos/6.jpg", "/ePhotos/7.jpg", "/ePhotos/8.jpg", "/ePhotos/9.jpg",
     "/ePhotos/10.jpg", "/ePhotos/11.jpg", "/ePhotos/12.jpg", "/ePhotos/13.jpg", "/ePhotos/14.jpg", "/ePhotos/15.jpg", "/ePhotos/16.jpg", "/ePhotos/17.jpg", "/ePhotos/18.jpg", "/ePhotos/19.jpg", "/ePhotos/20.jpg", ],
   albumB: [
-    "/italy/1.jpg", "/italy/2.jpg", "/italy/3.jpg", "/italy/4.jpg", "/italy/5.jpg", "/italy/6.jpg", "/italy/7.jpg", "/italy/8.jpg", "/italy/9.jpg", "/italy/10.jpg", "/italy/11.jpg", "/italy/12.jpg",
+    "/italy/1.jpg", "/italy/2.jpg", "/italy/3.jpg", "/italy/4.jpg", "/italy/5.jpg", "/italy/6.jpg", "/italy/7.jpg", "/italy/8.jpg", "/italy/9.jpg", "/italy/10.jpg", "/italy/11.jpg",
     "/italy/13.jpg", "/italy/28.jpg", "/italy/14.jpg", "/italy/27.jpg", "/italy/15.jpg", "/italy/16.jpg", "/italy/17.jpg", "/italy/18.jpg", "/italy/19.jpg", "/italy/20.jpg", "/italy/21.jpg",
     "/italy/22.jpg", "/italy/23.jpg", "/italy/24.jpg", "/italy/25.jpg", "/italy/26.jpg",  "/italy/29.jpg", "/italy/30.jpg", "/italy/31.jpg", "/italy/32.jpg",
     "/italy/33.jpg", "/italy/34.jpg", "/italy/35.jpg", "/italy/36.jpg", "/italy/37.jpg", "/italy/38.jpg", "/italy/39.jpg", "/italy/40.jpg", "/italy/41.jpg", "/italy/42.jpg",
@@ -612,17 +612,102 @@ const toOneDriveEmbed = (url) => {
   return url;
 };
 
+// ---------- Video Card with graceful fallback ----------
+const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
+  const [useEmbed, setUseEmbed] = useState(!preferExternal);
+  const [failed, setFailed] = useState(false);
+  const [loading, setLoading] = useState(useEmbed);
+
+  return (
+    <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]">
+      {/* Media area */}
+      <div className="relative aspect-video w-full rounded-t-2xl bg-[#0f0f0f]">
+        {/* Skeleton */}
+        {loading && !failed && (
+          <div className="absolute inset-0 animate-pulse bg-linear-to-br from-[#1c1c1c] to-[#2a2a2a]" />
+        )}
+
+        {/* Poster fallback */}
+        {(failed || !useEmbed) && (
+          <button
+            onClick={() => window.open(src, "_blank", "noopener,noreferrer")}
+            className="absolute inset-0 flex items-center justify-center group"
+            aria-label={`Open ${title || 'video'} in OneDrive`}
+          >
+            {/* Poster image if provided */}
+            {poster ? (
+              <img src={poster} alt="" className="absolute inset-0 w-full h-full object-cover opacity-70" />
+            ) : (
+              <div className="absolute inset-0 bg-linear-to-br from-[#141414] to-[#2b2b2b]" />
+            )}
+            {/* Play overlay */}
+            <div className="relative flex items-center gap-3 rounded-full px-5 py-3 bg-white/90 group-hover:bg-white shadow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-honeybrown">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <span className="text-honeybrown font-semibold">Open in OneDrive</span>
+            </div>
+          </button>
+        )}
+
+        {/* Embed */}
+        {useEmbed && !failed && (
+          <iframe
+            src={toOneDriveEmbed(src)}
+            className="absolute inset-0 w-full h-full"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            title={title || "Video"}
+            onLoad={() => setLoading(false)}
+            onError={() => {
+              setLoading(false);
+              setFailed(true);
+            }}
+          />
+        )}
+
+        {/* Top-right toggle to open externally if embed is stubborn */}
+        {useEmbed && !failed && (
+          <div className="absolute right-3 top-3">
+            <button
+              onClick={() => window.open(src, "_blank", "noopener,noreferrer")}
+              className="rounded-full bg-white/90 hover:bg-white px-3 py-1 text-xs font-semibold text-honeybrown shadow"
+            >
+              Open in OneDrive
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Meta */}
+      <div className="p-4 text-center">
+        <h3 className="text-lg font-semibold text-honeybrown mb-2">{title}</h3>
+        <p className="text-sm text-caramel/90">{desc}</p>
+        {failed && (
+          <div className="mt-3 text-xs text-caramel/70">
+            Having trouble embedding large files from OneDrive. The button above will open it reliably.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const Videos = () => {
   const videoData = [
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
       title: "The Italian Proposal",
-      desc: "A 2 1/2 hour movie of our trip around Roma, Florence, and Venice — culminating in the big moment on July 4th!",
+      desc: "A 2½‑hour movie of our trip around Roma, Florence, and Venice — culminating in the big moment on July 4th!",
+      // Prefer external for super‑long files to avoid flaky embeds
+      preferExternal: true,
     },
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
       title: "Magical Slideshow",
-      desc: "A magical slideshow of our trip, coming in around an hour and a half.",
+      desc: "A magical slideshow of our trip (about 90 minutes).",
     },
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQZ1m-hI900QpQh9_OE3vSRAYQ-BB3mMFcupu5nzqK2ces?",
@@ -632,38 +717,17 @@ const Videos = () => {
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQwcVVsoCMtSYAgPsDKk6UJAUiBCvgDfeMEsikydtkbs6Y",
       title: "Quick Roundup: The Trip",
-      desc: "A quick TikTok-style compilation of some highlights from our trip.",
+      desc: "A quick TikTok‑style compilation of highlights from our trip.",
     },
   ];
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-10 min-h-[calc(100vh-var(--headerH)-var(--footerH))] flex flex-col justify-center">
-      <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-8 text-center">
-        Videos
-      </h2>
+      <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-8 text-center">Videos</h2>
 
       <div className="grid gap-10 md:grid-cols-2">
         {videoData.map((v, i) => (
-          <div
-            key={i}
-            className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-[#a48000]"
-          >
-            <iframe
-              src={toOneDriveEmbed(v.src)}
-              className="w-full aspect-video rounded-t-2xl max-h-[min(38vh,360px)]"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer"
-              title={v.title || `Video ${i + 1}`}
-            />
-            <div className="p-4 text-center">
-              <h3 className="text-lg font-semibold text-honeybrown mb-2">
-                {v.title}
-              </h3>
-              <p className="text-sm text-caramel/90">{v.desc}</p>
-            </div>
-          </div>
+          <VideoCard key={i} src={v.src} title={v.title} desc={v.desc} poster={v.poster} preferExternal={v.preferExternal} />
         ))}
       </div>
     </section>
