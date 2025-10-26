@@ -648,7 +648,7 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-amber-800">
                 <path d="M8 5v14l11-7z" />
               </svg>
-              <span className="text-amber-800 font-semibold">Open in OneDrive</span>
+              
             </div>
           </button>
         )}
@@ -674,13 +674,7 @@ const VideoCard = ({ src, title, desc, poster, preferExternal = false }) => {
         {/* Top-right external button */}
         {useEmbed && !failed && (
           <div className="absolute right-3 top-3">
-            <button
-              onClick={() => window.open(src, "_blank", "noopener,noreferrer")}
-              className="rounded-full bg-amber-50/90 hover:bg-white px-3 py-1 text-xs font-semibold text-amber-800 shadow"
-            >
-              Open in OneDrive
-            </button>
-          </div>
+                    </div>
         )}
       </div>
 
