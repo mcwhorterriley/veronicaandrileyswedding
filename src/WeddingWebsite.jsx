@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Camera, Film, Gift, Home as HomeIcon } from "lucide-react";
 
 const ASSETS = {
@@ -14,7 +14,7 @@ const ASSETS = {
     "/ePhotos/1.jpg", "/ePhotos/2.jpg", "/ePhotos/3.jpg", "/ePhotos/4.jpg", "/ePhotos/5.jpg", "/ePhotos/6.jpg", "/ePhotos/7.jpg", "/ePhotos/8.jpg", "/ePhotos/9.jpg",
     "/ePhotos/10.jpg", "/ePhotos/11.jpg", "/ePhotos/12.jpg", "/ePhotos/13.jpg", "/ePhotos/14.jpg", "/ePhotos/15.jpg", "/ePhotos/16.jpg", "/ePhotos/17.jpg", "/ePhotos/18.jpg", "/ePhotos/19.jpg", "/ePhotos/20.jpg", ],
   albumB: [
-    "/italy/1.jpg", "/italy/2.jpg", "/italy/3.jpg", "/italy/4.jpg", "/italy/5.jpg", "/italy/6.jpg", "/italy/7.jpg", "/italy/8.jpg", "/italy/9.jpg", "/italy/10.jpg", "/italy/11.jpg",
+    "/italy/1.jpg", "/italy/2.jpg", "/italy/3.jpg", "/italy/4.jpg", "/italy/5.jpg", "/italy/6.jpg", "/italy/7.jpg", "/italy/8.jpg", "/italy/9.jpg", "/italy/10.jpg", "/italy/11.jpg", "/italy/12.jpg",
     "/italy/13.jpg", "/italy/28.jpg", "/italy/14.jpg", "/italy/27.jpg", "/italy/15.jpg", "/italy/16.jpg", "/italy/17.jpg", "/italy/18.jpg", "/italy/19.jpg", "/italy/20.jpg", "/italy/21.jpg",
     "/italy/22.jpg", "/italy/23.jpg", "/italy/24.jpg", "/italy/25.jpg", "/italy/26.jpg",  "/italy/29.jpg", "/italy/30.jpg", "/italy/31.jpg", "/italy/32.jpg",
     "/italy/33.jpg", "/italy/34.jpg", "/italy/35.jpg", "/italy/36.jpg", "/italy/37.jpg", "/italy/38.jpg", "/italy/39.jpg", "/italy/40.jpg", "/italy/41.jpg", "/italy/42.jpg",
@@ -54,30 +54,37 @@ const GlobalBackground = () => {
 };
 
 /* ----------------------------------------------------------
-   ScreenFlash
+   ScreenFlash (respects reduced motion)
 ---------------------------------------------------------- */
-const ScreenFlash = ({ duration = 1400 }) => (
-  <motion.div
-    className="fixed inset-0 pointer-events-none"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: [0, 1, 0] }}
-    transition={{ duration: duration / 1000, ease: "easeInOut" }}
-    style={{
-      background:
-        "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 25%, rgba(255,255,255,0.25) 55%, rgba(255,255,255,0) 80%)",
-      mixBlendMode: "screen",
-      filter: "blur(2px) brightness(1.1)",
+const ScreenFlash = ({ duration = 1400 }) => {
+  const reduce = useReducedMotion();
+  if (reduce) return null;
+  return (
+    <motion.div
+      className="fixed inset-0 pointer-events-none"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: [0, 1, 0] }}
+      transition={{ duration: duration / 1000, ease: "easeInOut" }}
+      style={{
+        background:
+          "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 25%, rgba(255,255,255,0.25) 55%, rgba(255,255,255,0) 80%)",
+        mixBlendMode: "screen",
+        filter: "blur(2px) brightness(1.1)",
     }}
   />
-);
+  );
+};
 
 /* ----------------------------------------------------------
    FireworkBurst
 ---------------------------------------------------------- */
 const FireworkBurst = ({ origin = { x: "50%", y: "50%" }, local = false }) => {
   const ref = useRef(null);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
+    if (reduce) return; // skip for reduced motion users
+
     const host = ref.current;
     if (!host) return;
 
@@ -218,7 +225,7 @@ const FireworkBurst = ({ origin = { x: "50%", y: "50%" }, local = false }) => {
         ],
       });
     });
-  }, [origin.x, origin.y]);
+  }, [origin.x, origin.y, reduce]);
 
   return <div ref={ref} className={`${local ? "absolute inset-0" : "fixed inset-0"} pointer-events-none`} />;
 };
@@ -270,7 +277,7 @@ const Landing = ({ onEnter }) => {
           {/* Pooh */}
           <motion.img
             src={ASSETS.pooh}
-            alt="Pooh"
+            alt="Pooh silhouette"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
@@ -288,13 +295,10 @@ const Landing = ({ onEnter }) => {
           >
             <motion.img
               src={ASSETS.envelope}
-              alt="Click to go on adventure"
+              alt="Invitation envelope"
               className="w-[95%] md:w-[55%] lg:w-[65%] rounded-2xl select-none cursor-pointer block drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
-              animate={
-                entering
-                  ? { rotate: -6, scale: 1.06, filter: "drop-shadow(0 0 22px rgba(255,215,0,0.75))" }
-                  : { rotate: -4 }
-              }
+              variants={envelopeVariants}
+              animate={entering ? "entering" : "idle"} 
               whileHover={{ y: -4, scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 260, damping: 18 }}
@@ -351,7 +355,8 @@ const MiniSlideshow = ({ imgs = [], interval = 7000 }) => {
           <motion.img
             key={imgs[i]}
             src={imgs[i]}
-            alt=""
+            alt="Trip photo"
+            decoding="async"
             className="h-full w-full object-cover"
             initial={{ opacity: 0, scale: 1.01 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -413,7 +418,7 @@ const AlbumCard = ({ title, images = [], onOpen }) => {
     <button onClick={onOpen} className="group w-full overflow-hidden rounded-2xl bg-white/90 border border-amber-400 shadow-md hover:shadow-lg transition">
       <div className="relative aspect-4/3 grid grid-cols-2 grid-rows-2 gap-0.5 bg-amber-400">
         {thumbs.map((src, i) => (
-          <img key={i} src={src} alt="" loading="lazy" className="h-full w-full object-cover" />
+          <img key={i} src={src} alt="Album thumbnail" loading="lazy" className="h-full w-full object-cover" />
         ))}
         <div className="absolute inset-0 ring-1 ring-transparent group-hover:ring-amber-300 rounded" />
       </div>
@@ -507,7 +512,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
                         }}
                         className="group relative overflow-hidden rounded-xl bg-white ring-1 ring-amber-400 hover:ring-amber-300 shadow-sm hover:shadow transition"
                       >
-                        <img src={src} alt="" loading="lazy" className="h-36 w-full object-cover sm:h-40 md:h-44 transition-transform duration-200 group-hover:scale-[1.03]" />
+                        <img src={src} alt="Gallery thumbnail" loading="lazy" className="h-36 w-full object-cover sm:h-40 md:h-44 transition-transform duration-200 group-hover:scale-[1.03]" />
                       </button>
                     ))}
                   </div>
@@ -547,7 +552,7 @@ const AlbumModal = ({ open, onClose, title, images = [] }) => {
           ) : (
             // Slideshow (Pooh colors, centered controls)
             <div className="flex flex-col items-center">
-              <img src={images[i]} alt="" className="mx-auto max-h-[70vh] w-auto rounded-xl shadow ring-1 ring-amber-400" />
+              <img src={images[i]} alt="Selected gallery photo" className="mx-auto max-h-[70vh] w-auto rounded-xl shadow ring-1 ring-amber-400" />
               <div className="mt-4 flex items-center justify-center gap-6">
                 <button
                   onClick={() => setI((x) => (x - 1 + images.length) % images.length)}
@@ -575,7 +580,7 @@ const Photos = () => {
   const [openFor, setOpenFor] = useState(null); // 'A' | 'B' | null
   const albums = [
     { key: "A", title: "Engagement", images: ASSETS.albumA },
-    { key: "B", title: "/italy", images: ASSETS.albumB },
+    { key: "B", title: "Italy", images: ASSETS.albumB }, // renamed from "/italy" for cleanliness
   ];
 
   return (
@@ -597,12 +602,9 @@ const Photos = () => {
 
 /* ---------- OneDrive embed helper ---------- */
 const toOneDriveEmbed = (url) => {
-  // If it's a short 1drv.ms link, append ?embed=1 to hint inline playback.
-  // For best reliability: get the official iframe from OneDrive "Embed".
   try {
     const u = new URL(url);
     if (u.hostname.includes("1drv.ms")) {
-      // preserve existing query
       if (!u.searchParams.has("embed")) u.searchParams.set("embed", "1");
       return u.toString();
     }
@@ -619,18 +621,18 @@ const Videos = () => {
     },
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
-      title: "",
-      desc: "A Magical Slideshow of our Trip, coming in around an hour and a half.",
+      title: "Magical Slideshow",
+      desc: "A magical slideshow of our trip, coming in around an hour and a half.",
     },
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQZ1m-hI900QpQh9_OE3vSRAYQ-BB3mMFcupu5nzqK2ces?",
-      title: "The Propsal",
-      desc: "See me embarass myself trying to propose, and Veronica's surprised reaction!",
+      title: "The Proposal",
+      desc: "See me embarrass myself trying to propose, and Veronica's surprised reaction!",
     },
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQwcVVsoCMtSYAgPsDKk6UJAUiBCvgDfeMEsikydtkbs6Y",
       title: "Quick Roundup: The Trip",
-      desc: "A quick tik tok compiled of some highlights from our trip.",
+      desc: "A quick TikTok-style compilation of some highlights from our trip.",
     },
   ];
 
@@ -653,7 +655,7 @@ const Videos = () => {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer"
-              title={v.title}
+              title={v.title || `Video ${i + 1}`}
             />
             <div className="p-4 text-center">
               <h3 className="text-lg font-semibold text-honeybrown mb-2">
@@ -709,7 +711,7 @@ const Shell = () => {
       {/* Header with tabs */}
       <header className="h-[75px] sticky top-0 z-30 bg-gold backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-          <nav className="flex gap-2">
+          <nav className="flex gap-2" aria-label="Primary">
             {tabs.map((t) => (
               <button
                 key={t.key}
@@ -717,6 +719,7 @@ const Shell = () => {
                 className={`px-3 py-1.5 rounded-xl text-sm transition ring-1 ${
                   tab === t.key ? "bg-[#DAA520] text-white ring-[#a48000]" : "bg-white/80 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
                 }`}
+                aria-current={tab === t.key ? "page" : undefined}
               >
                 <t.icon size={14} className="inline mr-1" />
                 {t.label}
@@ -737,7 +740,7 @@ const Shell = () => {
 
       {/* Footer – fixed height so Videos page can size to viewport */}
       <footer className="relative border-t border-[#a48000]" style={{ height: "var(--footerH)" }}>
-        <img src={ASSETS.footer} alt="" className="block w-full h-full object-cover select-none pointer-events-none" />
+        <img src={ASSETS.footer} alt="Footer decoration" className="block w-full h-full object-cover select-none pointer-events-none" />
         <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 80%)" }} />
         <div className="absolute inset-0 flex items-center justify-center px-4" />
       </footer>
@@ -752,7 +755,7 @@ export default function WeddingWebsite() {
   const [entered, setEntered] = useState(false);
 
   return (
-    <div style="text-caramel font-semibold">
+    <div className="text-caramel font-semibold">
       <GlobalBackground />
 
       <div className="relative z-20">
