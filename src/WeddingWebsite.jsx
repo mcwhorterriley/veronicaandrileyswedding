@@ -846,7 +846,7 @@ const Info = () => {
                 <p><strong>RSVP:</strong> Invitations will be sent out soon with RSVP instructions.</p>
               </div>
               <a
-                href="https://www.priceline.com/stay/#/search/?location=Ponchatoula,%20Louisiana&date1=2026-11-14&date2=2026-11-15"
+                href="https://www.priceline.com/relax-ui/listings?destination=3000008467&checkIn=20261114&checkOut=20261115&rooms=1&adults=2"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-3 inline-flex rounded-xl bg-amber-200/80 hover:bg-amber-300 text-amber-900 font-semibold px-4 py-2 text-sm shadow transition border border-amber-300"
