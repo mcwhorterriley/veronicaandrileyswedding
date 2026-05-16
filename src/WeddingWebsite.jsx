@@ -395,12 +395,15 @@ const HomePage = () => (
         </h1>
         <p className="text-amber-700/90 italic">Una Settimana d’Amore</p>
         <p className="text-stone-800 leading-relaxed max-w-prose">
-          Ciao, <em>Una Settimana d’Amore</em>, or <span className="italic">A Week of Love</span>. Join us as we begin our journey through Italy.
-          Our adventure started in <strong>Roma</strong>, where we spent four incredible days getting lost in winding streets and being amazed by the breathtaking architecture.
-          From there, Veronica and I traveled to <strong>Florence</strong>, a city full of charm and unforgettable moments. Between exploring local shops and taking an amazing cooking class, we learned how to make <em>fettuccine</em>, <em>ravioli</em>, and <em>tiramisu</em> completely from scratch.
-          Last was <strong>Venice</strong>, a city that no movie could ever truly capture. There were plenty of stairs and no quick way to get anywhere, but every moment was worth it. From designing our own masks and finding a hidden tower to visiting the Murano Glass Factory, it was nothing short of magical.
-          Still, nothing could compare to <strong>July 4th</strong>, when <strong>Veronica LeBlanc said “yes”</strong> to being my wife.
-          Click through to experience our journey — enjoy the slideshow or watch <em>Italy: The Movie</em>.  Buon viaggio!
+        Ciao, <em>Una Settimana d’Amore</em>, or <span className="italic">A Week of Love</span>. Join us as we begin our journey through Italy.
+Our adventure started in <strong>Roma</strong>, where we spent four incredible days getting lost in winding streets, exploring the city, and taking in the unbelievable architecture.
+From there, Veronica and I traveled to <strong>Florence</strong>, a city full of charm, amazing food, and unforgettable memories. Between exploring local shops and taking a cooking class, 
+we learned how to make fresh fettuccine, ravioli, and tiramisu completely from scratch. Last was <strong>Venice</strong>, a place that honestly felt unreal at times. 
+There were stairs everywhere and no fast way to get anywhere, but every second was worth it. From designing our own masks and finding hidden towers to visiting the Murano Glass Factory,
+Venice quickly became one of the most memorable parts of our trip. Nothing compared to the 4th of July, when Veronica said yes to marrying me.
+
+Click through and experience our journey across Italy through photos, slideshows, and full videos of our adventure.
+          
         </p>
       </div>
 
@@ -696,10 +699,11 @@ const Videos = () => {
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0" ,
       desc: "A 2½‑hour movie of our trip around Roma, Florence, and Venice. With our big moment on July 4th!",
+       preferExternal: true,
       },
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
-      desc: "A magical slideshow of our trip (about 90 minutes).",
+      desc: "A magical slideshow of our trip (about 90 minutes).",    
     },
     {
       src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQZ1m-hI900QpQh9_OE3vSRAYQ-BB3mMFcupu5nzqK2ces?",
@@ -723,45 +727,7 @@ const Videos = () => {
     </section>
   );
 };
- () => {
-  const videoData = [
-    {
-      src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxK3YKAAAAAM-2z6OdWK-WjK0",
-      title: "The Italian Proposal",
-      desc: "A 2½‑hour movie of our trip around Roma, Florence, and Venice — culminating in the big moment on July 4th!",
-      // Prefer external for super‑long files to avoid flaky embeds
-      preferExternal: true,
-    },
-    {
-      src: "https://1drv.ms/v/c/f11f5828b26f7c89/UQSJfG-yKFgfIIDxfXUKAAAAAPya3SVv-wRtwRA",
-      title: "Magical Slideshow",
-      desc: "A magical slideshow of our trip (about 90 minutes).",
-    },
-    {
-      src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQZ1m-hI900QpQh9_OE3vSRAYQ-BB3mMFcupu5nzqK2ces?",
-      title: "The Proposal",
-      desc: "See me embarrass myself trying to propose, and Veronica's surprised reaction!",
-    },
-    {
-      src: "https://1drv.ms/v/c/f11f5828b26f7c89/IQQwcVVsoCMtSYAgPsDKk6UJAUiBCvgDfeMEsikydtkbs6Y",
-      title: "Quick Roundup: The Trip",
-      desc: "A quick TikTok‑style compilation of highlights from our trip.",
-    },
-  ];
-
-  return (
-    <section className="mx-auto max-w-7xl px-6 py-10 min-h-[calc(100vh-var(--headerH)-var(--footerH))] flex flex-col justify-center">
-      <h2 className="font-serif text-3xl md:text-4xl text-navy-800 mb-8 text-center">Videos</h2>
-
-      <div className="grid gap-10 md:grid-cols-2">
-        {videoData.map((v, i) => (
-          <VideoCard key={i} src={v.src} title={v.title} desc={v.desc} poster={v.poster} preferExternal={v.preferExternal} />
-        ))}
-      </div>
-    </section>
-  );
-};
-
+ 
 const Registry = () => {
   const cols = Math.min(REGISTRY_LINKS.length, 3);
   const gridColsClass = cols === 1 ? "sm:grid-cols-1" : cols === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3";
