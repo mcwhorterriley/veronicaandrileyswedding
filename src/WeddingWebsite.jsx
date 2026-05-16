@@ -940,11 +940,22 @@ const Shell = () => {
       </main>
 
       {/* Footer – fixed height so Videos page can size to viewport */}
-      <footer className="relative border-t border-[#a48000]" style={{ height: "var(--footerH)" }}>
-        <img src={ASSETS.footer} alt="Footer decoration" className="block w-full h-full object-cover select-none pointer-events-none" />
-        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 80%)" }} />
-        <div className="absolute inset-0 flex items-center justify-center px-4" />
-      </footer>
+     <footer className="relative border-t border-[#a48000] overflow-hidden">
+  <img
+    src={ASSETS.footer}
+    alt="Footer decoration"
+    className="block w-full h-auto select-none pointer-events-none"
+  />
+
+  <div
+    aria-hidden
+    className="absolute inset-0 pointer-events-none"
+    style={{
+      background:
+        "linear-gradient(to top, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.55) 35%, rgba(255,255,255,0) 80%)",
+    }}
+  />
+</footer>
     </div>
   );
 };
