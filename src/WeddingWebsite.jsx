@@ -853,10 +853,8 @@ const Info = () => {
               >
                 Find Nearby Hotels
               </a>
-               <p className="text-sm text-stone-800 mb-4">
-             Most importantly, have fun, be safe, and drink responsibly.
-            </p>
-            </div>
+                 
+           </div>
           </div>
 
           {/* RIGHT SIDE: Registry */}
@@ -889,7 +887,7 @@ const Info = () => {
         </div>
 
         <p className="mt-4 text-center text-sm italic text-amber-800">
-          Please plan ahead, celebrate safely, and take care of one another.
+          Most importantly, have fun, be safe, and drink responsibly.
         </p>
       </div>
     </section>
