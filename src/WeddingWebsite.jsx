@@ -807,24 +807,104 @@ const Videos = () => {
   );
 };
  
-const Registry = () => {
-  const cols = Math.min(REGISTRY_LINKS.length, 3);
-  const gridColsClass = cols === 1 ? "sm:grid-cols-1" : cols === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3";
-
+const Info = () => {
   return (
-    <section className="mx-auto max-w-5xl px-4 py-16 text-center bg-transparent">
-      <h2 className="font-serif text-3xl md:text-4xl text-amber-800 mb-8 drop-shadow-sm">Wedding Registry</h2>
+    <section className="mx-auto max-w-5xl px-4 py-12">
+      <div className="rounded-2xl bg-amber-50/85 backdrop-blur-sm ring-1 ring-amber-200 shadow p-6 md:p-8">
+        <h2 className="font-serif text-3xl md:text-4xl text-amber-800 mb-6 text-center">
+          Wedding Information
+        </h2>
 
-      {/* Registry Button Grid (Tailwind can't parse dynamic class names at build-time) */}
-      <div className={`grid gap-8 ${gridColsClass} justify-items-center`}>
-        {REGISTRY_LINKS.map((r) => (
-          <a key={r.href} href={r.href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center transition-transform hover:scale-105 bg-transparent">
-            <div className="rounded-2xl overflow-hidden shadow-md border-4 border-[#a48000] bg-transparent backdrop-blur-sm p-4 w-48 h-48 flex items-center justify-center hover:shadow-[0_0_20px_#ffd966]">
-              <img src={r.img} alt={`${r.label} Registry`} className="w-full h-full object-contain" />
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded-2xl bg-amber-50/70 border border-amber-200 p-5 shadow-sm">
+            <h3 className="font-serif text-2xl text-amber-800 mb-3">
+              Ceremony & Reception
+            </h3>
+
+            <div className="space-y-2 text-stone-800 leading-relaxed">
+              <p>
+                <strong>Date:</strong> November 14, 2026
+              </p>
+              <p>
+                <strong>Time:</strong> Ceremony time coming soon
+              </p>
+              <p>
+                <strong>Location:</strong> The Oaks  Wedding and Event Center
+              </p>
+              <p>
+                <strong>Address:</strong> 18444 LA-22, Ponchatoula, LA 70454
+              </p>
             </div>
-            <span className="mt-3 text-amber-800 font-semibold text-lg drop-shadow-sm">{r.label}</span>
-          </a>
-        ))}
+          </div>
+
+          <div className="rounded-2xl bg-amber-50/70 border border-amber-200 p-5 shadow-sm">
+            <h3 className="font-serif text-2xl text-amber-800 mb-3">
+              Guest Details
+            </h3>
+            <div className="space-y-2 text-stone-800 leading-relaxed">
+              <p>
+                <strong>STRICT</strong> We love all the littles in our families, however this is an <strong>ADULTS ONLY</strong> ceremony and reception. 
+                This is an expensive event for us and it is what it is, sorry.  We love you and appreciate your respect.
+              </p>
+              <p>
+                <strong>Attire:</strong> Don't be an asshole.
+              </p>
+              <p>
+                <strong>Parking:</strong> Details coming soon
+              </p>
+              <p>
+                <strong>RSVP:</strong> Invitations will be sent out soon with RSVP instructions. 
+              </p>
+               <p>
+                <strong>NOTES:</strong> Wine and beer will be provided, along with a cash bar for cocktails.
+                Please remember the wedding is in Ponchatoula, so we strongly encourage everyone to plan ahead and arrange accommodations if needed.
+
+              <a
+              href="https://www.priceline.com/stay/#/search/?location=Ponchatoula,%20Louisiana&date1=2026-11-14&date2=2026-11-15"
+              target="_blank"
+              rel="noopener noreferrer"
+               className="ml-1 text-amber-800 underline hover:text-amber-900"
+               >
+               View nearby hotels here.
+                 </a>
+
+               <br />
+               <br />
+
+                Most importantly, celebrate safely, take care of one another, and have an amazing time with us.
+                </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 rounded-2xl bg-amber-100/60 border border-amber-200 p-5 text-center shadow-sm">
+          <h3 className="font-serif text-2xl text-amber-800 mb-2">
+            Registry
+          </h3>
+
+          <div className="flex justify-center">
+            {REGISTRY_LINKS.map((r) => (
+              <a
+                key={r.href}
+                href={r.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center justify-center transition-transform hover:scale-105"
+              >
+                <div className="rounded-2xl overflow-hidden shadow-md border-4 border-[#a48000] bg-amber-50/70 backdrop-blur-sm p-4 w-44 h-44 flex items-center justify-center hover:shadow-[0_0_20px_#ffd966]">
+                  <img
+                    src={r.img}
+                    alt={`${r.label} Registry`}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <span className="mt-3 text-amber-800 font-semibold text-lg drop-shadow-sm">
+                  {r.label}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -834,7 +914,7 @@ const tabs = [
   { key: "home", label: "Home", icon: HomeIcon, comp: <HomePage /> },
   { key: "photos", label: "Photos", icon: Camera, comp: <Photos /> },
   { key: "videos", label: "Videos", icon: Film, comp: <Videos /> },
-  { key: "registry", label: "Registry", icon: Gift, comp: <Registry /> },
+  { key: "info", label: "Info", icon: Gift, comp: <Info /> },
 ];
 
 /* ----------------------------------------------------------
