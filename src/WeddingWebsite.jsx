@@ -839,7 +839,7 @@ const Info = () => {
               <div className="space-y-1 text-sm text-stone-800 leading-relaxed">
                 <p>  <strong>STRICT</strong> We love all the littles in our families, however this is an <strong>ADULTS ONLY</strong> ceremony and reception. 
                 This is an expensive event for us and it is what it is, sorry.  We love you and appreciate your respect.</p>
-                <p><strong>Attire:</strong> Don't be an asshole.</p>
+                <p><strong>Attire:</strong> Cocktail | Formal</p>
                 <p><strong>Alcohol:</strong> Wine and beer will be provided, along with a cash bar for cocktails.
                 Please remember the wedding is in Ponchatoula, so we strongly encourage everyone to plan ahead and arrange accommodations if needed.</p>
                 <p><strong>Parking:</strong> Plenty of parking on location.</p>
