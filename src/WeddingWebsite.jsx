@@ -278,7 +278,7 @@ const Countdown = () => {
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.4 }}
-      className="mt-6 w-full max-w-2xl rounded-2xl bg-amber-50/70 backdrop-blur-sm border border-amber-200 shadow-lg px-5 py-5 text-center"
+      className="mt-4 w-full max-w-lg bg-amber-50/70 backdrop-blur-sm border border-amber-200 shadow-lg px-5 py-5 text-center"
     >
       <div className="grid grid-cols-4 gap-3">
         {units.map((u) => (
