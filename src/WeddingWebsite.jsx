@@ -853,6 +853,9 @@ const Info = () => {
               >
                 Find Nearby Hotels
               </a>
+               <p className="text-sm text-stone-800 mb-4">
+             Most importantly, have fun, be safe, and drink responsibly.
+            </p>
             </div>
           </div>
 
@@ -861,10 +864,6 @@ const Info = () => {
             <h3 className="font-serif text-xl text-amber-800 mb-2">
               Registry
             </h3>
-
-            <p className="text-sm text-stone-800 mb-4">
-             Most importantly, have fun, be safe, and drink responsibly.
-            </p>
 
             <div className="flex justify-center">
               {REGISTRY_LINKS.map((r) => (
