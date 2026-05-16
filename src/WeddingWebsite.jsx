@@ -231,6 +231,83 @@ const FireworkBurst = ({ origin = { x: "50%", y: "50%" }, local = false }) => {
 };
 
 /* ----------------------------------------------------------
+   Countdown Timer
+---------------------------------------------------------- */
+const Countdown = () => {
+  const weddingDate = new Date("2026-11-14T16:00:00");
+
+  const getTimeLeft = () => {
+    const diff = weddingDate - new Date();
+
+    if (diff <= 0) {
+      return {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      };
+    }
+
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / (1000 * 60)) % 60),
+      seconds: Math.floor((diff / 1000) % 60),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(getTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const units = [
+    { label: "Days", value: timeLeft.days },
+    { label: "Hours", value: timeLeft.hours },
+    { label: "Minutes", value: timeLeft.minutes },
+    { label: "Seconds", value: timeLeft.seconds },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.4 }}
+      className="mt-6 w-full max-w-2xl rounded-2xl bg-amber-50/70 backdrop-blur-sm border border-amber-200 shadow-lg px-5 py-5 text-center"
+    >
+      <div className="grid grid-cols-4 gap-3">
+        {units.map((u) => (
+          <div
+            key={u.label}
+            className="rounded-xl bg-amber-50/40 border border-amber-100 px-3 py-3 shadow-sm"
+          >
+            <div className="text-lg md:text-2xl font-semibold italic tracking-wide text-amber-900 tabular-nums">
+              {String(u.value).padStart(2, "0")}
+            </div>
+
+            <div className="mt-1 text-[10px] md:text-xs uppercase tracking-[0.18em] text-amber-700">
+              {u.label}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 font-serif italic text-lg md:text-xl text-amber-800">
+        November 14, 2026
+      </div>
+    </motion.div>
+  );
+};
+
+
+
+
+/* ----------------------------------------------------------
    Landing (Pooh + envelope)
 ---------------------------------------------------------- */
 const Landing = ({ onEnter }) => {
@@ -291,7 +368,7 @@ const Landing = ({ onEnter }) => {
             onClick={handleClick}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            aria-label="Click to go on adventure"
+            aria-label="Click me to begin the adventure!"
           >
             <motion.img
               src={ASSETS.envelope}
@@ -324,8 +401,10 @@ const Landing = ({ onEnter }) => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </button>
+         </button>
         </div>
+
+        <Countdown />
       </div>
 
       {/* Global flash on top */}
