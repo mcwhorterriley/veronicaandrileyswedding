@@ -837,8 +837,8 @@ const Info = () => {
               </h3>
 
               <div className="space-y-1 text-sm text-stone-800 leading-relaxed">
-                <p><strong>NOTES:</strong> Wine and beer will be provided, along with a cash bar for cocktails.
-                Please remember the wedding is in Ponchatoula, so we strongly encourage everyone to plan ahead and arrange accommodations if needed.</p>
+                <p>  <strong>STRICT</strong> We love all the littles in our families, however this is an <strong>ADULTS ONLY</strong> ceremony and reception. 
+                This is an expensive event for us and it is what it is, sorry.  We love you and appreciate your respect.</p>
                 <p><strong>Attire:</strong> Don't be an asshole.</p>
                 <p><strong>Alcohol:</strong> Wine and beer will be provided, along with a cash bar for cocktails.
                 Please remember the wedding is in Ponchatoula, so we strongly encourage everyone to plan ahead and arrange accommodations if needed.</p>
@@ -863,9 +863,7 @@ const Info = () => {
           <div className="rounded-2xl bg-amber-100/60 border border-amber-200 p-4 text-center shadow-sm flex flex-col justify-center">
             <h3 className="font-serif text-xl text-amber-800 mb-2">
               Registry
-            </h3>
-
-            <div className="flex justify-center">
+            </h3>            <div className="flex justify-center">
               {REGISTRY_LINKS.map((r) => (
                 <a
                   key={r.href}
