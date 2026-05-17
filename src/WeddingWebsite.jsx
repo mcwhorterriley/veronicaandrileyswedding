@@ -6,7 +6,7 @@ const ASSETS = {
   background: "/background.png",
   pooh: "/pooh-silhouette.png",
   envelope: "/envelope.png",
-  footer: "/footer.PNG",
+  footer: "/footer.png",
   chime: "/magic-chime.mp3",
   amazon: "/amazon.png",
 
