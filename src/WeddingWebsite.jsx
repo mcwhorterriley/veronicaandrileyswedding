@@ -947,7 +947,7 @@ const Shell = () => {
   className="
     w-full
     h-[50px]
-    md:h-40
+    
     object-cover
     object-center
     select-none
