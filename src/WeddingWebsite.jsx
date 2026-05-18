@@ -946,8 +946,8 @@ const Shell = () => {
   alt="Footer decoration"
   className="
     w-full
-    h-[75px]
-    md:h-[160px]
+    h-[50px]
+    md:h-40
     object-cover
     object-center
     select-none
