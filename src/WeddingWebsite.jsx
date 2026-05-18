@@ -942,10 +942,18 @@ const Shell = () => {
       {/* Footer – fixed height so Videos page can size to viewport */}
      <footer className="relative border-t border-[#a48000] overflow-hidden">
   <img
-    src={ASSETS.footer}
-    alt="Footer decoration"
-    className="block w-full h-auto select-none pointer-events-none"
-  />
+  src={ASSETS.footer}
+  alt="Footer decoration"
+  className="
+    w-full
+    h-[120px]
+    md:h-[160px]
+    object-cover
+    object-center
+    select-none
+    pointer-events-none
+  "
+/>
 
   <div
     aria-hidden
