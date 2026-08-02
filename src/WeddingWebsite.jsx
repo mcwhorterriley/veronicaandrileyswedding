@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Camera, Film, Gift, Home as HomeIcon } from "lucide-react";
+import { Camera, Film, Gift, Home as HomeIcon, CheckCircle2 } from "lucide-react";
+import RSVPPage from "./components/rsvp/RSVPPage.jsx";
+import DetailsPage from "./pages/DetailsPage.jsx";
+import RegistryPage from "./pages/RegistryPage.jsx";
+import { readRsvpSession } from "./services/rsvpSession.js";
 
 const ASSETS = {
   background: "/background.png",
@@ -26,6 +30,8 @@ const ASSETS = {
 };
 
 ASSETS.slideshow = [...ASSETS.albumA, ...ASSETS.albumB].sort(() => Math.random() - 0.5);
+
+
 
 const REGISTRY_LINKS = [
   {
@@ -807,105 +813,42 @@ const Videos = () => {
   );
 };
  
-const Info = () => {
-  return (
-    <section className="mx-auto max-w-6xl px-4 py-8">
-      <div className="rounded-2xl bg-amber-50/85 backdrop-blur-sm ring-1 ring-amber-200 shadow p-5 md:p-6">
-        <h2 className="font-serif text-3xl md:text-4xl text-amber-800 mb-5 text-center">
-          Wedding Information
-        </h2>
-
-        <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-          {/* LEFT SIDE: Main info */}
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl bg-amber-50/70 border border-amber-200 p-4 shadow-sm">
-              <h3 className="font-serif text-xl text-amber-800 mb-2">
-                Ceremony & Reception
-              </h3>
-
-              <div className="space-y-1 text-sm text-stone-800 leading-relaxed">
-                <p><strong>Date:</strong> November 14, 2026</p>
-                <p><strong>Time:</strong> Ceremony time coming soon</p>
-                <p><strong>Location:</strong> The Oaks  Wedding and Event Center</p>
-                <p><strong>Address:</strong> 18444 LA-22, Ponchatoula, LA 70454</p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl bg-amber-50/70 border border-amber-200 p-4 shadow-sm">
-              <h3 className="font-serif text-xl text-amber-800 mb-2">
-                Guest Details
-              </h3>
-
-              <div className="space-y-1 text-sm text-stone-800 leading-relaxed">
-                <p>  <strong>STRICT</strong> We love all the littles in our families, however this is an <strong>ADULTS ONLY</strong> ceremony and reception. 
-                This is an expensive event for us and it is what it is, sorry.  We love you and appreciate your respect.</p>
-                <p><strong>Attire:</strong> Cocktail | Formal</p>
-                <p><strong>Alcohol:</strong> Wine and beer will be provided, along with a cash bar for cocktails.
-                Please remember the wedding is in Ponchatoula, so we strongly encourage everyone to plan ahead and arrange accommodations if needed.</p>
-                <p><strong>Parking:</strong> Plenty of parking on location.</p>
-                <p><strong>RSVP:</strong> Invitations will be sent out soon with RSVP instructions.</p>
-              </div>
-              <a
-                href="https://www.priceline.com/relax-ui/listings?destination=3000008467&checkIn=20261114&checkOut=20261115&rooms=1&adults=2"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex rounded-xl bg-amber-200/80 hover:bg-amber-300 text-amber-900 font-semibold px-4 py-2 text-sm shadow transition border border-amber-300"
-              >
-                Find Nearby Hotels
-              </a>
-                 
-           </div>
-          </div>
-
-          {/* RIGHT SIDE: Registry */}
-          <div className="rounded-2xl bg-amber-100/60 border border-amber-200 p-4 text-center shadow-sm flex flex-col justify-center">
-            <h3 className="font-serif text-xl text-amber-800 mb-2">
-              Registry
-            </h3>            <div className="flex justify-center">
-              {REGISTRY_LINKS.map((r) => (
-                <a
-                  key={r.href}
-                  href={r.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center justify-center transition-transform hover:scale-105"
-                >
-                  <div className="rounded-2xl overflow-hidden shadow-md border-4 border-[#a48000] bg-amber-50/70 backdrop-blur-sm p-3 w-36 h-36 flex items-center justify-center hover:shadow-[0_0_20px_#ffd966]">
-                    <img
-                      src={r.img}
-                      alt={`${r.label} Registry`}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <span className="mt-2 text-amber-800 font-semibold text-base drop-shadow-sm">
-                    {r.label}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <p className="mt-4 text-center text-sm italic text-amber-800">
-          Most importantly, have fun, be safe, and drink responsibly.
-        </p>
-      </div>
-    </section>
-  );
-};
-
-const tabs = [
+const buildTabs = (hasResponded, canViewDetails, onRsvpCompleted, onViewDetails) => [
   { key: "home", label: "Home", icon: HomeIcon, comp: <HomePage /> },
   { key: "photos", label: "Photos", icon: Camera, comp: <Photos /> },
   { key: "videos", label: "Videos", icon: Film, comp: <Videos /> },
-  { key: "info", label: "Info", icon: Gift, comp: <Info /> },
+  {
+    key: "rsvp",
+    label: "RSVP",
+    icon: Gift,
+    hiddenFromNav: hasResponded,
+    comp: <RSVPPage onCompleted={onRsvpCompleted} onViewDetails={onViewDetails} />,
+  },
+  { key: "registry", label: "Registry", icon: Gift, comp: <RegistryPage /> },
+  ...(canViewDetails
+    ? [{ key: "details", label: "Details", icon: CheckCircle2, comp: <DetailsPage /> }]
+    : []),
 ];
 
 /* ----------------------------------------------------------
    Shell with tabs
 ---------------------------------------------------------- */
-const Shell = () => {
-  const [tab, setTab] = useState("home");
+const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
+  const [tab, setTab] = useState(initialTab);
+  const hasResponded = Boolean(session?.status);
+  const tabs = buildTabs(
+    hasResponded,
+    Boolean(session?.canViewDetails),
+    onRsvpCompleted,
+    () => {
+      setTab("details");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+  );
+
+  useEffect(() => {
+    if (tab === "details" && !session?.canViewDetails) setTab("rsvp");
+  }, [session, tab]);
 
   return (
     <div className="min-h-screen flex flex-col" style={{ "--headerH": "75px", "--footerH": "100px" }}>
@@ -913,7 +856,7 @@ const Shell = () => {
       <header className="h-[75px] sticky top-0 z-30 bg-gold backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
           <nav className="flex gap-2" aria-label="Primary">
-            {tabs.map((t) => (
+            {tabs.filter((t) => !t.hiddenFromNav).map((t) => (
               <button
                 key={t.key}
                 onClick={() => setTab(t.key)}
@@ -971,7 +914,19 @@ const Shell = () => {
    Root
 ---------------------------------------------------------- */
 export default function WeddingWebsite() {
-  const [entered, setEntered] = useState(false);
+  const redirectedPath = new URLSearchParams(window.location.search).get("p");
+  const currentPath = (redirectedPath || window.location.pathname).replace(/\/+$/, "");
+  const isRsvpPath = currentPath === "/rsvp";
+
+  useEffect(() => {
+    if (redirectedPath) window.history.replaceState({}, "", redirectedPath);
+  }, [redirectedPath]);
+  const [entered, setEntered] = useState(isRsvpPath);
+  const [session, setSession] = useState(() => readRsvpSession());
+
+  const handleRsvpCompleted = (nextSession) => {
+    setSession(nextSession);
+  };
 
   return (
     <div className="text-caramel font-semibold">
@@ -985,7 +940,19 @@ export default function WeddingWebsite() {
             </motion.div>
           ) : (
             <motion.div key="site" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} transition={{ duration: 1.2, ease: "easeOut" }}>
-              <Shell />
+              <Shell
+                initialTab={
+                  isRsvpPath
+                    ? session?.canViewDetails
+                      ? "details"
+                      : session?.status
+                        ? "home"
+                        : "rsvp"
+                    : "home"
+                }
+                session={session}
+                onRsvpCompleted={handleRsvpCompleted}
+              />
             </motion.div>
           )}
         </AnimatePresence>
