@@ -3,7 +3,8 @@ import { AlertTriangle, CheckCircle2, Clock3, RefreshCw, ShieldAlert, Trash2, Us
 import { ALL_INVITED_MEMBERS, INVITATION_GROUPS } from "../data/guests.js";
 import { clearAuditLog, readAuditLog } from "../services/rsvpAudit.js";
 import { readRsvpResponses } from "../services/rsvpResponses.js";
-import { isAdminAuthorized } from "../services/adminAuth.js";
+import { isAdminAuthorized, isAdminMember, remainingAdminAttempts, verifyAdminEmail } from "../services/adminAuth.js";
+import { readRsvpSession } from "../services/rsvpSession.js";
 
 const fmt = (iso) => {
   if (!iso) return "—";
@@ -17,18 +18,67 @@ const levelClasses = {
 };
 
 export default function AdminPage() {
-  if (!isAdminAuthorized()) {
-    return (
-      <section className="mx-auto max-w-xl px-4 py-16 text-center">
-        <div className="rounded-3xl border border-amber-200 bg-white/95 p-8 shadow-xl">
-          <ShieldAlert className="mx-auto text-amber-700" size={42} />
-          <h1 className="mt-4 font-serif text-3xl text-amber-950">Wedding Administration</h1>
-          <p className="mt-3 text-stone-600">This area is reserved for Riley and Veronica. Complete your RSVP first to authorize this browser.</p>
-          <a href="/rsvp" className="mt-6 inline-flex rounded-xl bg-amber-700 px-5 py-3 font-semibold text-white hover:bg-amber-800">Go to RSVP</a>
-        </div>
-      </section>
-    );
+  const [authorized, setAuthorized] = useState(() => isAdminAuthorized());
+  const session = readRsvpSession();
+
+  if (!authorized) {
+    return <AdminAccessGate session={session} onAuthorized={() => setAuthorized(true)} />;
   }
+
+  return <AuthorizedAdminPage />;
+}
+
+function AdminAccessGate({ session, onAuthorized }) {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const eligible = Boolean(session?.guestId && isAdminMember(session.guestId));
+
+  const verify = (event) => {
+    event.preventDefault();
+    setError("");
+    if (!eligible) return;
+    const result = verifyAdminEmail(session.guestId, email);
+    if (result.ok) {
+      onAuthorized();
+      return;
+    }
+    if (result.configurationError) {
+      setError("Admin email has not been configured yet.");
+      return;
+    }
+    if (result.locked) {
+      setError("Too many incorrect attempts. Admin access is locked on this browser.");
+      return;
+    }
+    setError(`That email doesn't match our admin record. ${result.remaining} ${result.remaining === 1 ? "try" : "tries"} remaining.`);
+  };
+
+  return (
+    <section className="mx-auto max-w-xl px-4 py-16 text-center">
+      <div className="rounded-3xl border border-amber-200 bg-white/95 p-8 shadow-xl">
+        <ShieldAlert className="mx-auto text-amber-700" size={42} />
+        <h1 className="mt-4 font-serif text-3xl text-amber-950">Wedding Administration</h1>
+        {eligible ? (
+          <>
+            <p className="mt-3 text-stone-600">Your RSVP is already saved. Enter your admin email once to authorize this browser.</p>
+            <form onSubmit={verify} className="mt-6">
+              <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" className="w-full rounded-xl border border-amber-300 px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500" required />
+              {error && <p className="mt-3 text-sm font-semibold text-red-700">{error}</p>}
+              <button type="submit" disabled={remainingAdminAttempts(session.guestId) === 0} className="mt-5 w-full rounded-xl bg-amber-700 px-5 py-3 font-semibold text-white hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50">Access Admin Portal</button>
+            </form>
+          </>
+        ) : (
+          <>
+            <p className="mt-3 text-stone-600">This area is reserved for Riley and Veronica. Complete your RSVP first to authorize this browser.</p>
+            <a href="/rsvp" className="mt-6 inline-flex rounded-xl bg-amber-700 px-5 py-3 font-semibold text-white hover:bg-amber-800">Go to RSVP</a>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function AuthorizedAdminPage() {
   const [events, setEvents] = useState(() => readAuditLog());
   const [responses, setResponses] = useState(() => readRsvpResponses());
   const [filter, setFilter] = useState("ALL");

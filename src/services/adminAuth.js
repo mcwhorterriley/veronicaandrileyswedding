@@ -5,8 +5,8 @@ const MAX_ATTEMPTS = 5;
 // Replace these two values with the exact emails Riley and Veronica will use.
 // This is intentionally a lightweight, three-month-site gate, not high-security authentication.
 const ADMIN_EMAILS = {
-  "riley-mcwhorter": "REPLACE_WITH_RILEY_EMAIL",
-  "veronica-mcwhorter": "REPLACE_WITH_VERONICA_EMAIL",
+  "riley-mcwhorter": "rmcwhorter94@gmail.com",
+  "veronica-mcwhorter": "vleblanc18@yahoo.com",
 };
 
 export const isAdminMember = (memberId) => Object.prototype.hasOwnProperty.call(ADMIN_EMAILS, memberId);

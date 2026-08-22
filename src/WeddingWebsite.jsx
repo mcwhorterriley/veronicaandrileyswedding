@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Camera, Film, Gift, Home as HomeIcon, CheckCircle2 } from "lucide-react";
+import { Camera, Film, Gift, Home as HomeIcon, CheckCircle2, ShieldCheck } from "lucide-react";
 import RSVPPage from "./components/rsvp/RSVPPage.jsx";
 import DetailsPage from "./pages/DetailsPage.jsx";
 import RegistryPage from "./pages/RegistryPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import { readRsvpSession } from "./services/rsvpSession.js";
+import { isAdminAuthorized, isAdminMember, remainingAdminAttempts, verifyAdminEmail } from "./services/adminAuth.js";
 
 const ASSETS = {
   background: "/background.png",
@@ -836,7 +837,12 @@ const buildTabs = (hasResponded, canViewDetails, onRsvpCompleted, onViewDetails)
 ---------------------------------------------------------- */
 const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
   const [tab, setTab] = useState(initialTab);
+  const [showAdminAccess, setShowAdminAccess] = useState(false);
+  const [adminEmail, setAdminEmail] = useState("");
+  const [adminError, setAdminError] = useState("");
   const hasResponded = Boolean(session?.status);
+  const adminEligible = Boolean(session?.guestId && isAdminMember(session.guestId));
+  const adminAuthorized = isAdminAuthorized();
   const tabs = buildTabs(
     hasResponded,
     Boolean(session?.canViewDetails),
@@ -850,6 +856,31 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
   useEffect(() => {
     if (tab === "details" && !session?.canViewDetails) setTab("rsvp");
   }, [session, tab]);
+
+  // Migration path for Riley/Veronica who RSVP'd before admin access existed.
+  // Their RSVP session remains intact; we only ask for the admin email once.
+  useEffect(() => {
+    if (adminEligible && !adminAuthorized) setShowAdminAccess(true);
+  }, [adminEligible, adminAuthorized]);
+
+  const handleCachedAdminVerify = (event) => {
+    event.preventDefault();
+    setAdminError("");
+    const result = verifyAdminEmail(session.guestId, adminEmail);
+    if (result.ok) {
+      window.location.href = "/admin";
+      return;
+    }
+    if (result.configurationError) {
+      setAdminError("Admin email has not been configured yet.");
+      return;
+    }
+    if (result.locked) {
+      setAdminError("Too many incorrect attempts. Admin access is locked on this browser.");
+      return;
+    }
+    setAdminError(`That email doesn't match our admin record. ${result.remaining} ${result.remaining === 1 ? "try" : "tries"} remaining.`);
+  };
 
   return (
     <div className="min-h-screen flex flex-col" style={{ "--headerH": "75px", "--footerH": "100px" }}>
@@ -870,6 +901,19 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
                 {t.label}
               </button>
             ))}
+            {adminEligible && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (isAdminAuthorized()) window.location.href = "/admin";
+                  else setShowAdminAccess(true);
+                }}
+                className="px-3 py-1.5 rounded-xl text-sm transition ring-1 bg-amber-50/85 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
+              >
+                <ShieldCheck size={14} className="inline mr-1" />
+                Admin
+              </button>
+            )}
           </nav>
         </div>
       </header>
@@ -910,6 +954,36 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
     }}
   />
 </footer>
+
+      {showAdminAccess && adminEligible && !isAdminAuthorized() && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/55 px-4">
+          <div className="w-full max-w-md rounded-3xl border border-amber-200 bg-white p-7 text-center shadow-2xl">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-amber-700">Admin Access</p>
+            <h3 className="mt-2 font-serif text-3xl text-amber-950">Welcome back, {session?.guestName?.split(" ")[0] || "Admin"}</h3>
+            <p className="mt-3 text-sm text-stone-600">Your RSVP is already saved. Enter your admin email once to unlock the portal on this browser.</p>
+            <form onSubmit={handleCachedAdminVerify} className="mt-6">
+              <input
+                type="email"
+                autoComplete="email"
+                value={adminEmail}
+                onChange={(e) => setAdminEmail(e.target.value)}
+                placeholder="Email address"
+                className="w-full rounded-xl border border-amber-300 px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
+                required
+              />
+              {adminError && <p className="mt-3 text-sm font-semibold text-red-700">{adminError}</p>}
+              <button
+                type="submit"
+                disabled={remainingAdminAttempts(session.guestId) === 0}
+                className="mt-5 w-full rounded-xl bg-amber-700 px-5 py-3 font-semibold text-white shadow hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Access Admin Portal
+              </button>
+            </form>
+            <button type="button" onClick={() => setShowAdminAccess(false)} className="mt-4 text-sm font-semibold text-stone-500 hover:text-stone-800">Not right now</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
