@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding RSVP</title>
+    <script>
+      (function () {
+        var path = window.location.pathname || "/";
+        var search = window.location.search || "";
+        var hash = window.location.hash || "";
+
+        // Send GitHub Pages deep links back through the React entry page.
+        // WeddingWebsite.jsx already knows how to read ?p=/rsvp and ?p=/admin.
+        var target = "/?p=" + encodeURIComponent(path);
+
+        if (search) {
+          target += "&q=" + encodeURIComponent(search.substring(1));
+        }
+        if (hash) {
+          target += hash;
+        }
+
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Loading the wedding website…</p>
+  </body>
+</html>
