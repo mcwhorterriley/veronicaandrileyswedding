@@ -1,38 +1,57 @@
-# Wedding Website RSVP Build
+# Wedding Website RSVP Build — Invitation Groups
 
-This build preserves the original wedding website and adds a modular RSVP flow.
+This prototype now uses named invitation groups instead of a single guest + anonymous count.
 
-## Current routes
+## Current behavior
 
-- `/` — original Pooh landing page
-- `/rsvp` — direct RSVP destination for the invitation QR code
+- Any named person on an invitation can search their own first and last name.
+- They can RSVP only for themselves, or choose **RSVP for my party**.
+- Party RSVP can only select people explicitly assigned to the same invitation.
+- Anyone not selected remains **Pending** and can RSVP independently later.
+- A later response can update that named person's current RSVP status.
+- Accepted guests unlock the Details tab.
+- Registry remains public.
+- `/admin` shows total invited, attending, declined, pending, each guest name, invitation size, who submitted the response, and the system log.
 
-## Test guests
+## Admin identities
 
-- Riley McWhorter
-- Veronica McWhorter
-- Test Guest
+Riley McWhorter and Veronica McWhorter are marked as admin members in `src/data/guests.js`.
 
-## Important
+**Important:** the current `/admin` page still uses browser-local prototype data and is not production-secure authentication. Real cross-device RSVP tracking and a truly locked Riley/Veronica-only admin page require a backend/database and authentication.
 
-The guest list and RSVP storage are currently local prototype data. Before mailing invitations, replace `src/data/guests.js` and the browser-storage service with a server-side database/API such as Supabase.
+## Test invitation
 
-## Run locally
+The temporary test data includes a six-person `Test Family` invitation:
+
+- Sissy Guest
+- Test Person2
+- Test Person3
+- Test Person4
+- Test Person5
+- Test Person6
+
+Replace the temporary records in `src/data/guests.js` with the verified wedding guest list before production.
+
+## Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build
+Then test:
 
-```bash
-npm run build
-```
+- `/rsvp`
+- `/admin`
 
-## Current UI additions
+## Admin authorization
 
-- Accepted guests receive a personalized RSVP confirmation.
-- The confirmation includes a **View Wedding Details** button that opens the protected Details tab.
-- Registry is now its own public navigation tab and links to the Amazon wedding registry.
-- No meal selections or song requests are collected.
+Riley McWhorter and Veronica McWhorter are marked as admin-eligible guests. After either completes an RSVP, an Admin Access prompt appears. The admin enters only their email; a successful match permanently authorizes that browser via localStorage. There is no logout UI or expiration. Five incorrect attempts lock admin verification on that browser.
+
+Before testing, edit `src/services/adminAuth.js` and replace:
+- `REPLACE_WITH_RILEY_EMAIL`
+- `REPLACE_WITH_VERONICA_EMAIL`
+
+with the exact two email addresses.
+
+Direct visits to `/admin` are blocked until that browser has been authorized.

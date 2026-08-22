@@ -4,6 +4,7 @@ import { Camera, Film, Gift, Home as HomeIcon, CheckCircle2 } from "lucide-react
 import RSVPPage from "./components/rsvp/RSVPPage.jsx";
 import DetailsPage from "./pages/DetailsPage.jsx";
 import RegistryPage from "./pages/RegistryPage.jsx";
+import AdminPage from "./pages/AdminPage.jsx";
 import { readRsvpSession } from "./services/rsvpSession.js";
 
 const ASSETS = {
@@ -888,9 +889,12 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
   src={ASSETS.footer}
   alt="Footer decoration"
   className="
+    block
     w-full
-    h-20
-    object-cover
+    h-auto
+    object-contain
+    sm:h-20
+    sm:object-cover
     object-center
     select-none
     pointer-events-none
@@ -917,11 +921,12 @@ export default function WeddingWebsite() {
   const redirectedPath = new URLSearchParams(window.location.search).get("p");
   const currentPath = (redirectedPath || window.location.pathname).replace(/\/+$/, "");
   const isRsvpPath = currentPath === "/rsvp";
+  const isAdminPath = currentPath === "/admin";
 
   useEffect(() => {
     if (redirectedPath) window.history.replaceState({}, "", redirectedPath);
   }, [redirectedPath]);
-  const [entered, setEntered] = useState(isRsvpPath);
+  const [entered, setEntered] = useState(isRsvpPath || isAdminPath);
   const [session, setSession] = useState(() => readRsvpSession());
 
   const handleRsvpCompleted = (nextSession) => {
@@ -940,19 +945,23 @@ export default function WeddingWebsite() {
             </motion.div>
           ) : (
             <motion.div key="site" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} transition={{ duration: 1.2, ease: "easeOut" }}>
-              <Shell
-                initialTab={
-                  isRsvpPath
-                    ? session?.canViewDetails
-                      ? "details"
-                      : session?.status
-                        ? "home"
-                        : "rsvp"
-                    : "home"
-                }
-                session={session}
-                onRsvpCompleted={handleRsvpCompleted}
-              />
+              {isAdminPath ? (
+                <AdminPage />
+              ) : (
+                <Shell
+                  initialTab={
+                    isRsvpPath
+                      ? session?.canViewDetails
+                        ? "details"
+                        : session?.status
+                          ? "home"
+                          : "rsvp"
+                      : "home"
+                  }
+                  session={session}
+                  onRsvpCompleted={handleRsvpCompleted}
+                />
+              )}
             </motion.div>
           )}
         </AnimatePresence>

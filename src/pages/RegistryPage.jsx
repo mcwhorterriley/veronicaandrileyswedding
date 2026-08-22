@@ -14,8 +14,8 @@ export default function RegistryPage() {
           Registry
         </h2>
         <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-stone-700">
-          Your presence at our wedding is the greatest gift of all. For those who
-          have asked, our registry is available below.
+          Please don't feel obligated to get anything, we all work for a living. Just come through if you're invited. However, instead of asking a hundred times, here yall go!
+      
         </p>
 
         <a
