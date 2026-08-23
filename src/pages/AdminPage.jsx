@@ -130,8 +130,20 @@ function AuthorizedAdminPage() {
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div><p className="text-xs font-bold uppercase tracking-[0.25em] text-amber-700">Wedding Administration</p><h1 className="mt-1 font-serif text-4xl text-amber-950 md:text-5xl">RSVP Control Room</h1></div>
-        <button onClick={refresh} className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-300 bg-white/90 px-4 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-50"><RefreshCw size={16} /> Refresh</button>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-amber-700">Wedding Administration</p>
+          <h1 className="mt-1 font-serif text-4xl text-amber-950 md:text-5xl">RSVP Control Room</h1>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => { window.location.href = "/"; }}
+            className="inline-flex items-center justify-center rounded-xl border border-amber-300 bg-white/90 px-4 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-50"
+          >
+            Back to Wedding Site
+          </button>
+          <button onClick={refresh} className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-300 bg-white/90 px-4 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-50"><RefreshCw size={16} /> Refresh</button>
+        </div>
       </div>
 
       <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

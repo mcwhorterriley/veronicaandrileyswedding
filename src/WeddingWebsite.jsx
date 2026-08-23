@@ -815,7 +815,7 @@ const Videos = () => {
   );
 };
  
-const buildTabs = (hasResponded, canViewDetails, onRsvpCompleted, onViewDetails) => [
+const buildTabs = (canViewDetails, onRsvpCompleted, onViewDetails) => [
   { key: "home", label: "Home", icon: HomeIcon, comp: <HomePage /> },
   { key: "photos", label: "Photos", icon: Camera, comp: <Photos /> },
   { key: "videos", label: "Videos", icon: Film, comp: <Videos /> },
@@ -840,19 +840,18 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
   const [showAdminAccess, setShowAdminAccess] = useState(false);
   const [adminEmail, setAdminEmail] = useState("");
   const [adminError, setAdminError] = useState("");
-  const hasResponded = Boolean(session?.status);
+  
   const adminMemberId = resolveAdminMemberId(session);
   const adminEligible = Boolean(adminMemberId);
   const adminAuthorized = isAdminAuthorized();
   const tabs = buildTabs(
-    hasResponded,
-    Boolean(session?.canViewDetails),
-    onRsvpCompleted,
-    () => {
-      setTab("details");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    },
-  );
+  Boolean(session?.canViewDetails),
+  onRsvpCompleted,
+  () => {
+    setTab("details");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  },
+);
 
   useEffect(() => {
     if (tab === "details" && !session?.canViewDetails) setTab("rsvp");
