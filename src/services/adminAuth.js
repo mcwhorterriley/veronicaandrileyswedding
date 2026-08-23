@@ -11,6 +11,21 @@ const ADMIN_EMAILS = {
 
 export const isAdminMember = (memberId) => Object.prototype.hasOwnProperty.call(ADMIN_EMAILS, memberId);
 
+const normalizeIdentityName = (value = "") =>
+  String(value).trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+
+export function resolveAdminMemberId(session) {
+  if (!session) return null;
+
+  if (isAdminMember(session.guestId)) return session.guestId;
+
+  const name = normalizeIdentityName(session.guestName);
+  if (name === "rileymcwhorter") return "riley-mcwhorter";
+  if (name === "veronicamcwhorter") return "veronica-mcwhorter";
+
+  return null;
+}
+
 export function readAdminAuth() {
   try { return JSON.parse(localStorage.getItem(AUTH_KEY) || "null"); } catch { return null; }
 }

@@ -6,7 +6,7 @@ import DetailsPage from "./pages/DetailsPage.jsx";
 import RegistryPage from "./pages/RegistryPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import { readRsvpSession } from "./services/rsvpSession.js";
-import { isAdminAuthorized, isAdminMember, remainingAdminAttempts, verifyAdminEmail } from "./services/adminAuth.js";
+import { isAdminAuthorized, remainingAdminAttempts, resolveAdminMemberId, verifyAdminEmail } from "./services/adminAuth.js";
 
 const ASSETS = {
   background: "/background.png",
@@ -841,7 +841,8 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
   const [adminEmail, setAdminEmail] = useState("");
   const [adminError, setAdminError] = useState("");
   const hasResponded = Boolean(session?.status);
-  const adminEligible = Boolean(session?.guestId && isAdminMember(session.guestId));
+  const adminMemberId = resolveAdminMemberId(session);
+  const adminEligible = Boolean(adminMemberId);
   const adminAuthorized = isAdminAuthorized();
   const tabs = buildTabs(
     hasResponded,
@@ -866,7 +867,7 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
   const handleCachedAdminVerify = (event) => {
     event.preventDefault();
     setAdminError("");
-    const result = verifyAdminEmail(session.guestId, adminEmail);
+    const result = verifyAdminEmail(adminMemberId, adminEmail);
     if (result.ok) {
       window.location.href = "/admin";
       return;
@@ -974,7 +975,7 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
               {adminError && <p className="mt-3 text-sm font-semibold text-red-700">{adminError}</p>}
               <button
                 type="submit"
-                disabled={remainingAdminAttempts(session.guestId) === 0}
+                disabled={remainingAdminAttempts(adminMemberId) === 0}
                 className="mt-5 w-full rounded-xl bg-amber-700 px-5 py-3 font-semibold text-white shadow hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Access Admin Portal

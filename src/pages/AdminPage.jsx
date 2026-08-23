@@ -3,7 +3,7 @@ import { AlertTriangle, CheckCircle2, Clock3, RefreshCw, ShieldAlert, Trash2, Us
 import { ALL_INVITED_MEMBERS, INVITATION_GROUPS } from "../data/guests.js";
 import { clearAuditLog, readAuditLog } from "../services/rsvpAudit.js";
 import { readRsvpResponses } from "../services/rsvpResponses.js";
-import { isAdminAuthorized, isAdminMember, remainingAdminAttempts, verifyAdminEmail } from "../services/adminAuth.js";
+import { isAdminAuthorized, remainingAdminAttempts, resolveAdminMemberId, verifyAdminEmail } from "../services/adminAuth.js";
 import { readRsvpSession } from "../services/rsvpSession.js";
 
 const fmt = (iso) => {
@@ -31,13 +31,14 @@ export default function AdminPage() {
 function AdminAccessGate({ session, onAuthorized }) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const eligible = Boolean(session?.guestId && isAdminMember(session.guestId));
+  const adminMemberId = resolveAdminMemberId(session);
+  const eligible = Boolean(adminMemberId);
 
   const verify = (event) => {
     event.preventDefault();
     setError("");
     if (!eligible) return;
-    const result = verifyAdminEmail(session.guestId, email);
+    const result = verifyAdminEmail(adminMemberId, email);
     if (result.ok) {
       onAuthorized();
       return;
@@ -64,7 +65,7 @@ function AdminAccessGate({ session, onAuthorized }) {
             <form onSubmit={verify} className="mt-6">
               <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" className="w-full rounded-xl border border-amber-300 px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500" required />
               {error && <p className="mt-3 text-sm font-semibold text-red-700">{error}</p>}
-              <button type="submit" disabled={remainingAdminAttempts(session.guestId) === 0} className="mt-5 w-full rounded-xl bg-amber-700 px-5 py-3 font-semibold text-white hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50">Access Admin Portal</button>
+              <button type="submit" disabled={remainingAdminAttempts(adminMemberId) === 0} className="mt-5 w-full rounded-xl bg-amber-700 px-5 py-3 font-semibold text-white hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50">Access Admin Portal</button>
             </form>
           </>
         ) : (

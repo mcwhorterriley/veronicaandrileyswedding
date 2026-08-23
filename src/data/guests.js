@@ -21,7 +21,7 @@ export const INVITATION_GROUPS = [
     id: "invitation-002",
     label: "Rucker",
     members: [
-      { id: "britney-rucker", firstName: "Britney", lastName: "Rucker", displayName: "Britney Rucker" },
+      { id: "britney-rucker", firstName: "Brittany", lastName: "Rucker", displayName: "Brittany Rucker" },
       { id: "christien-rucker", firstName: "Christien", lastName: "Rucker", displayName: "Christien Rucker" },
     ],
   },
@@ -89,8 +89,8 @@ export const INVITATION_GROUPS = [
     id: "invitation-010",
     label: "Regina",
     members: [
-      { id: "aunt-regina", firstName: "Aunt", lastName: "Regina", displayName: "Aunt Regina" },
-      { id: "uncle-albert-schmiderer", firstName: "Uncle", lastName: "Albert Schmiderer", displayName: "Uncle Albert Schmiderer" },
+      { id: "aunt-regina", firstName: "Regina", lastName: "Schmiderer", displayName: "Aunt Regina" },
+      { id: "uncle-albert-schmiderer", firstName: "Albert", lastName: " Schmiderer", displayName: "Uncle Albert Schmiderer" },
     ],
   },
   {
@@ -165,7 +165,7 @@ export const INVITATION_GROUPS = [
     label: "leblanc",
     members: [
       { id: "alex-leblanc", firstName: "Alex", lastName: "leblanc", displayName: "Alex leblanc" },
-      { id: "molly-alex-gf", firstName: "Molly", lastName: "(alex gf)", displayName: "Molly (alex gf)" },
+      { id: "molly-alex-gf", firstName: "Molly", lastName: "", displayName: "Molly " },
     ],
   },
   {
@@ -195,22 +195,22 @@ export const INVITATION_GROUPS = [
     label: "Fiorella Cibilic",
     members: [
       { id: "taylor-fiorella-cibilic", firstName: "Taylor", lastName: "Fiorella Cibilic", displayName: "Taylor Fiorella Cibilic" },
-      { id: "sue-leblanc", firstName: "Sue", lastName: "leblanc", displayName: "Sue leblanc" },
+      { id: "pete-cibilic", firstName: "Pete", lastName: "Cibilic", displayName: "Pete Cibilic" },
     ],
   },
   {
     id: "invitation-024",
     label: "leblanc",
     members: [
-      { id: "tim-leblanc", firstName: "TIm", lastName: "leblanc", displayName: "TIm leblanc" },
-      { id: "lori-annas-mom", firstName: "lori", lastName: "(annas mom)", displayName: "lori (annas mom)" },
+      { id: "tim-leblanc", firstName: "Tim", lastName: "leblanc", displayName: "Tim leblanc" },
+      { id: "sue-leblanc", firstName: "Sue", lastName: "leblanc", displayName: "Sue leblanc" }
     ],
   },
   {
     id: "invitation-025",
     label: "Gayle Alexandar",
     members: [
-      { id: "aunt-gayle-alexandar", firstName: "Aunt", lastName: "Gayle Alexandar", displayName: "Aunt Gayle Alexandar" },
+      { id: "aunt-gayle-alexandar", firstName: "Gayle", lastName: " Alexandar", displayName: "Aunt Gayle Alexandar" },
       { id: "robin-alexander", firstName: "Robin", lastName: "Alexander", displayName: "Robin Alexander" },
       { id: "aimee-alexander", firstName: "Aimee", lastName: "Alexander", displayName: "Aimee Alexander" },
     ],
@@ -219,7 +219,7 @@ export const INVITATION_GROUPS = [
     id: "invitation-026",
     label: "scott leblnac",
     members: [
-      { id: "uncle-scott-leblnac", firstName: "Uncle", lastName: "scott leblnac", displayName: "Uncle scott leblnac" },
+      { id: "uncle-scott-leblnac", firstName: "scott", lastName: " leblnac", displayName: "Uncle scott leblnac" },
     ],
   },
   {
@@ -227,7 +227,7 @@ export const INVITATION_GROUPS = [
     label: "LeBlanc",
     members: [
       { id: "rachel-leblanc", firstName: "Rachel", lastName: "LeBlanc", displayName: "Rachel LeBlanc" },
-      { id: "rachel-husband-jesse", firstName: "Rachel", lastName: "husband Jesse", displayName: "Rachel husband Jesse" },
+      { id: "rachel-husband-jesse", firstName: "Jesse", lastName: "", displayName: "Jesse" },
     ],
   },
   {
@@ -359,8 +359,8 @@ export const INVITATION_GROUPS = [
     id: "invitation-044",
     label: "ruckers niece",
     members: [
-      { id: "samantha-ruckers-niece", firstName: "Samantha", lastName: "ruckers niece", displayName: "Samantha ruckers niece" },
-      { id: "eric-sams-husband", firstName: "Eric", lastName: "sams husband", displayName: "Eric sams husband" },
+      { id: "samantha-ruckers-niece", firstName: "Samantha", lastName: "ruckers niece", displayName: "Sonnier" },
+      { id: "eric-sams-husband", firstName: "Eric", lastName: "sams husband", displayName: "Sonnier" },
     ],
   },
   {
@@ -368,14 +368,14 @@ export const INVITATION_GROUPS = [
     label: "Licciardi",
     members: [
       { id: "kaylyn-licciardi", firstName: "Kaylyn", lastName: "Licciardi", displayName: "Kaylyn Licciardi" },
-      { id: "ansley", firstName: "Ansley", lastName: "", displayName: "Ansley" },
+      { id: "ansley", firstName: "Ansley", lastName: "Licciardi", displayName: "Ansley Licciardi" },
     ],
   },
   {
     id: "invitation-046",
     label: "oliva",
     members: [
-      { id: "oliva", firstName: "oliva", lastName: "", displayName: "oliva" },
+      { id: "oliva", firstName: "oliva", lastName: "Hoover", displayName: "oliva Hoover" },
       { id: "oliva-1", firstName: "oliva", lastName: "+1", displayName: "oliva +1" },
     ],
   },
@@ -390,7 +390,7 @@ export const INVITATION_GROUPS = [
     id: "invitation-048",
     label: "rucker sister",
     members: [
-      { id: "kerri-rucker-sister", firstName: "kerri", lastName: "rucker sister", displayName: "kerri rucker sister" },
+      { id: "kerri-rucker-sister", firstName: "Carri", lastName: "Pfingston", displayName: "Carri Pfingston" },
     ],
   },
   {
@@ -405,17 +405,17 @@ export const INVITATION_GROUPS = [
   },
   {
     id: "invitation-050",
-    label: "LeBlanc",
+    label: "O'Connor",
     members: [
-      { id: "avery-leblanc", firstName: "Avery", lastName: "LeBlanc", displayName: "Avery LeBlanc" },
-      { id: "liam-leblanc", firstName: "Liam", lastName: "LeBlanc", displayName: "Liam LeBlanc" },
+      { id: "avery-leblanc", firstName: "Avery", lastName: "O'Connor", displayName: "Avery O'Connor" },
+      { id: "liam-leblanc", firstName: "Liam", lastName: "O'Connor", displayName: "Liam O'Connor" },
     ],
   },
   {
     id: "invitation-051",
     label: "sis one",
     members: [
-      { id: "pawpaw-sis-one", firstName: "pawpaw", lastName: "sis one", displayName: "pawpaw sis one" },
+      { id: "pawpaw-sis-one", firstName: "pawpaw", lastName: "Tawncy", displayName: "Tawncy" },
     ],
   },
   {
@@ -478,16 +478,16 @@ export const INVITATION_GROUPS = [
     id: "invitation-060",
     label: "dylan",
     members: [
-      { id: "dylan", firstName: "dylan", lastName: "", displayName: "dylan" },
-      { id: "leah", firstName: "Leah", lastName: "", displayName: "Leah" },
+      { id: "dylan", firstName: "dylan", lastName: "Buras", displayName: "dylan Buras" },
+      { id: "leah", firstName: "Leah", lastName: "Brown", displayName: "Leah Brown" },
     ],
   },
   {
     id: "invitation-061",
     label: "Claire",
     members: [
-      { id: "mary-claire", firstName: "Mary", lastName: "Claire", displayName: "Mary Claire" },
-      { id: "chip-mc-husband", firstName: "Chip", lastName: "MC Husband", displayName: "Chip MC Husband" },
+      { id: "mary-claire", firstName: "Mary Claire", lastName: "Johnsen", displayName: "Mary Claire" },
+      { id: "chip-mc-husband", firstName: "Chip", lastName: "Johnsen", displayName: "Chip Johnsen" },
     ],
   },
   {
@@ -498,8 +498,15 @@ export const INVITATION_GROUPS = [
       { id: "mike-collura", firstName: "Mike", lastName: "Collura", displayName: "Mike Collura" },
     ],
   },
-  {
+   {
     id: "invitation-063",
+    label: "Lori",
+    members: [
+      { id: "lori-annas-mom", firstName: "lori", lastName: "", displayName: "lori (annas mom)" },
+    ],
+  },
+  {
+    id: "invitation-064",
     label: "Thompson",
     members: [
       { id: "victoria-thompson", firstName: "Victoria", lastName: "Thompson", displayName: "Victoria Thompson" },
