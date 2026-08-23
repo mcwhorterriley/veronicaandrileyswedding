@@ -5,7 +5,7 @@ import RSVPPage from "./components/rsvp/RSVPPage.jsx";
 import DetailsPage from "./pages/DetailsPage.jsx";
 import RegistryPage from "./pages/RegistryPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
-import { readRsvpSession } from "./services/rsvpSession.js";
+import { clearRsvpSession, readRsvpSession } from "./services/rsvpSession.js";
 import { isAdminAuthorized, remainingAdminAttempts, resolveAdminMemberId, verifyAdminEmail } from "./services/adminAuth.js";
 
 const ASSETS = {
@@ -883,6 +883,16 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
     setAdminError(`That email doesn't match our admin record. ${result.remaining} ${result.remaining === 1 ? "try" : "tries"} remaining.`);
   };
 
+  const handleSwitchGuest = () => {
+    // Forget only the active browser identity. Saved RSVP responses stay intact.
+    clearRsvpSession();
+    onRsvpCompleted(null);
+    setShowAdminAccess(false);
+    setAdminEmail("");
+    setAdminError("");
+    window.location.href = "/?p=/rsvp";
+  };
+
   return (
     <div className="min-h-screen flex flex-col" style={{ "--headerH": "75px", "--footerH": "100px" }}>
       {/* Header with tabs */}
@@ -982,6 +992,13 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
               </button>
             </form>
             <button type="button" onClick={() => setShowAdminAccess(false)} className="mt-4 text-sm font-semibold text-stone-500 hover:text-stone-800">Not right now</button>
+            <button
+              type="button"
+              onClick={handleSwitchGuest}
+              className="mt-3 block w-full text-sm font-semibold text-amber-800 underline underline-offset-4 hover:text-amber-950"
+            >
+              Not {session?.guestName?.split(" ")[0] || "this guest"}? Switch Guest
+            </button>
           </div>
         </div>
       )}
