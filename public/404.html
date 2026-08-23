@@ -4,13 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Loading Wedding Website…</title>
+
   <script>
     (function () {
       var path = window.location.pathname || "/";
       var target = "/?p=" + encodeURIComponent(path);
 
       if (window.location.search) {
-        target += "&q=" + encodeURIComponent(window.location.search.substring(1));
+        target += "&q=" + encodeURIComponent(
+          window.location.search.substring(1)
+        );
       }
 
       if (window.location.hash) {
@@ -21,6 +24,7 @@
     })();
   </script>
 </head>
+
 <body>
   <p>Loading the wedding website…</p>
 </body>
