@@ -1,12 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Camera, Film, Gift, Home as HomeIcon, CheckCircle2, ShieldCheck } from "lucide-react";
-import RSVPPage from "./components/rsvp/RSVPPage.jsx";
+import { Camera, Film, Gift, Home as HomeIcon, CheckCircle2 } from "lucide-react";
 import DetailsPage from "./pages/DetailsPage.jsx";
 import RegistryPage from "./pages/RegistryPage.jsx";
-import AdminPage from "./pages/AdminPage.jsx";
-import { readRsvpSession } from "./services/rsvpSession.js";
-import { isAdminAuthorized, remainingAdminAttempts, resolveAdminMemberId, verifyAdminEmail } from "./services/adminAuth.js";
 
 const ASSETS = {
   background: "/background.png",
@@ -815,110 +811,89 @@ const Videos = () => {
   );
 };
  
-const buildTabs = (canViewDetails, onRsvpCompleted, onViewDetails) => [
+
+const KNOT_RSVP_URL = "https://theknot.com/rileylovesveronica/rsvp";
+
+const InvitationDetailsPage = () => (
+  <div>
+    <section className="mx-auto max-w-4xl px-4 pt-8">
+      <div className="rounded-3xl border border-amber-300 bg-amber-50/95 p-6 text-center shadow-xl backdrop-blur-sm md:p-8">
+        <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-700">You're Invited</p>
+        <h1 className="mt-2 font-serif text-3xl text-amber-950 md:text-4xl">Wedding Details & RSVP</h1>
+        <p className="mx-auto mt-3 max-w-2xl text-stone-700">
+          We can't wait to celebrate with you. Review the wedding details below, then use our RSVP portal to let us know if you'll be joining us.
+        </p>
+        <a
+          href={KNOT_RSVP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex items-center justify-center rounded-xl bg-[#DAA520] px-7 py-3 font-semibold text-white shadow-lg transition hover:bg-[#b88918]"
+        >
+          RSVP on The Knot
+        </a>
+      </div>
+    </section>
+
+    <DetailsPage />
+
+    <section className="mx-auto max-w-4xl px-4 pb-12">
+      <div className="rounded-3xl border border-amber-300 bg-white/90 p-6 text-center shadow-lg">
+        <h2 className="font-serif text-2xl text-amber-950">Ready to RSVP?</h2>
+        <p className="mt-2 text-sm text-stone-600">RSVP for your party here.</p>
+        <a
+          href={KNOT_RSVP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 inline-flex items-center justify-center rounded-xl bg-[#DAA520] px-7 py-3 font-semibold text-white shadow transition hover:bg-[#b88918]"
+        >
+          Click Me, to RSVP!
+        </a>
+      </div>
+    </section>
+  </div>
+);
+
+const buildTabs = (inviteAccess) => [
   { key: "home", label: "Home", icon: HomeIcon, comp: <HomePage /> },
   { key: "photos", label: "Photos", icon: Camera, comp: <Photos /> },
   { key: "videos", label: "Videos", icon: Film, comp: <Videos /> },
-  {
-    key: "rsvp",
-    label: "RSVP",
-    icon: Gift,
-    hiddenFromNav: true,
-    comp: <RSVPPage onCompleted={onRsvpCompleted} onViewDetails={onViewDetails} />,
-  },
   { key: "registry", label: "Registry", icon: Gift, comp: <RegistryPage /> },
-  ...(canViewDetails
-    ? [{ key: "details", label: "Details", icon: CheckCircle2, comp: <DetailsPage /> }]
+  ...(inviteAccess
+    ? [{ key: "details", label: "Details", icon: CheckCircle2, comp: <InvitationDetailsPage /> }]
     : []),
 ];
 
 /* ----------------------------------------------------------
    Shell with tabs
 ---------------------------------------------------------- */
-const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
+const Shell = ({ initialTab = "home", inviteAccess = false }) => {
   const [tab, setTab] = useState(initialTab);
-  const [showAdminAccess, setShowAdminAccess] = useState(false);
-  const [adminEmail, setAdminEmail] = useState("");
-  const [adminError, setAdminError] = useState("");
-  
-  const adminMemberId = resolveAdminMemberId(session);
-  const adminEligible = Boolean(adminMemberId);
-  const adminAuthorized = isAdminAuthorized();
-  const tabs = buildTabs(
-  Boolean(session?.canViewDetails),
-  onRsvpCompleted,
-  () => {
-    setTab("details");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  },
-);
+  const tabs = buildTabs(inviteAccess);
 
   useEffect(() => {
-    if (tab === "details" && !session?.canViewDetails) setTab("rsvp");
-  }, [session, tab]);
-
-  // Migration path for Riley/Veronica who RSVP'd before admin access existed.
-  // Their RSVP session remains intact; we only ask for the admin email once.
-  useEffect(() => {
-    if (adminEligible && !adminAuthorized) setShowAdminAccess(true);
-  }, [adminEligible, adminAuthorized]);
-
-  const handleCachedAdminVerify = (event) => {
-    event.preventDefault();
-    setAdminError("");
-    const result = verifyAdminEmail(adminMemberId, adminEmail);
-    if (result.ok) {
-      window.location.href = "/admin";
-      return;
-    }
-    if (result.configurationError) {
-      setAdminError("Admin email has not been configured yet.");
-      return;
-    }
-    if (result.locked) {
-      setAdminError("Too many incorrect attempts. Admin access is locked on this browser.");
-      return;
-    }
-    setAdminError(`That email doesn't match our admin record. ${result.remaining} ${result.remaining === 1 ? "try" : "tries"} remaining.`);
-  };
+    if (tab === "details" && !inviteAccess) setTab("home");
+  }, [inviteAccess, tab]);
 
   return (
     <div className="min-h-screen flex flex-col" style={{ "--headerH": "75px", "--footerH": "100px" }}>
-      {/* Header with tabs */}
       <header className="h-[75px] sticky top-0 z-30 bg-gold backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
           <nav className="flex gap-2" aria-label="Primary">
-            {tabs.filter((t) => !t.hiddenFromNav).map((t) => (
+            {tabs.map((t) => (
               <button
                 key={t.key}
                 onClick={() => setTab(t.key)}
-                className={`px-3 py-1.5 rounded-xl text-sm transition ring-1 ${
-                  tab === t.key ? "bg-[#DAA520] text-white ring-[#a48000]" : "bg-amber-50/85 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
-                }`}
+                className={`px-3 py-1.5 rounded-xl text-sm transition ring-1 ${tab === t.key ? "bg-[#DAA520] text-white ring-[#a48000]" : "bg-amber-50/85 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"}`}
                 aria-current={tab === t.key ? "page" : undefined}
               >
                 <t.icon size={14} className="inline mr-1" />
                 {t.label}
               </button>
             ))}
-            {adminEligible && (
-              <button
-                type="button"
-                onClick={() => {
-                  if (isAdminAuthorized()) window.location.href = "/admin";
-                  else setShowAdminAccess(true);
-                }}
-                className="px-3 py-1.5 rounded-xl text-sm transition ring-1 bg-amber-50/85 text-[#DAA520] hover:bg-amber-100 ring-[#a48000]/40"
-              >
-                <ShieldCheck size={14} className="inline mr-1" />
-                Admin
-              </button>
-            )}
           </nav>
         </div>
       </header>
 
-      {/* Main content (animated) */}
       <main className="flex-1">
         <AnimatePresence mode="wait">
           <motion.div key={tab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
@@ -927,63 +902,10 @@ const Shell = ({ initialTab = "home", session, onRsvpCompleted }) => {
         </AnimatePresence>
       </main>
 
-      {/* Footer – fixed height so Videos page can size to viewport */}
-     <footer className="relative border-t border-[#a48000] overflow-hidden">
-  <img
-  src={ASSETS.footer}
-  alt="Footer decoration"
-  className="
-    block
-    w-full
-    h-auto
-    object-contain
-    sm:h-20
-    sm:object-cover
-    object-center
-    select-none
-    pointer-events-none
-  "
-/>
-
-  <div
-    aria-hidden
-    className="absolute inset-0 pointer-events-none"
-    style={{
-      background:
-        "linear-gradient(to top, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.55) 35%, rgba(255,255,255,0) 80%)",
-    }}
-  />
-</footer>
-
-      {showAdminAccess && adminEligible && !isAdminAuthorized() && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/55 px-4">
-          <div className="w-full max-w-md rounded-3xl border border-amber-200 bg-white p-7 text-center shadow-2xl">
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-amber-700">Admin Access</p>
-            <h3 className="mt-2 font-serif text-3xl text-amber-950">Welcome back, {session?.guestName?.split(" ")[0] || "Admin"}</h3>
-            <p className="mt-3 text-sm text-stone-600">Your RSVP is already saved. Enter your admin email once to unlock the portal on this browser.</p>
-            <form onSubmit={handleCachedAdminVerify} className="mt-6">
-              <input
-                type="email"
-                autoComplete="email"
-                value={adminEmail}
-                onChange={(e) => setAdminEmail(e.target.value)}
-                placeholder="Email address"
-                className="w-full rounded-xl border border-amber-300 px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
-                required
-              />
-              {adminError && <p className="mt-3 text-sm font-semibold text-red-700">{adminError}</p>}
-              <button
-                type="submit"
-                disabled={remainingAdminAttempts(adminMemberId) === 0}
-                className="mt-5 w-full rounded-xl bg-amber-700 px-5 py-3 font-semibold text-white shadow hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Access Admin Portal
-              </button>
-            </form>
-            <button type="button" onClick={() => setShowAdminAccess(false)} className="mt-4 text-sm font-semibold text-stone-500 hover:text-stone-800">Not right now</button>
-          </div>
-        </div>
-      )}
+      <footer className="relative border-t border-[#a48000] overflow-hidden">
+        <img src={ASSETS.footer} alt="Footer decoration" className="block w-full h-auto object-contain sm:h-20 sm:object-cover object-center select-none pointer-events-none" />
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.55) 35%, rgba(255,255,255,0) 80%)" }} />
+      </footer>
     </div>
   );
 };
@@ -995,22 +917,23 @@ export default function WeddingWebsite() {
   const redirectedPath = new URLSearchParams(window.location.search).get("p");
   const currentPath = (redirectedPath || window.location.pathname).replace(/\/+$/, "");
   const isRsvpPath = currentPath === "/rsvp";
-  const isAdminPath = currentPath === "/admin";
+
+  if (isRsvpPath) {
+    sessionStorage.setItem("wedding_invite_access", "true");
+  }
+
+  const inviteAccess =
+    isRsvpPath || sessionStorage.getItem("wedding_invite_access") === "true";
 
   useEffect(() => {
     if (redirectedPath) window.history.replaceState({}, "", redirectedPath);
   }, [redirectedPath]);
-  const [entered, setEntered] = useState(isRsvpPath || isAdminPath);
-  const [session, setSession] = useState(() => readRsvpSession());
 
-  const handleRsvpCompleted = (nextSession) => {
-    setSession(nextSession);
-  };
+  const [entered, setEntered] = useState(isRsvpPath);
 
   return (
     <div className="text-caramel font-semibold">
       <GlobalBackground />
-
       <div className="relative z-20">
         <AnimatePresence mode="wait">
           {!entered ? (
@@ -1019,23 +942,7 @@ export default function WeddingWebsite() {
             </motion.div>
           ) : (
             <motion.div key="site" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} transition={{ duration: 1.2, ease: "easeOut" }}>
-              {isAdminPath ? (
-                <AdminPage />
-              ) : (
-                <Shell
-                  initialTab={
-                    isRsvpPath
-                      ? session?.canViewDetails
-                        ? "details"
-                        : session?.status
-                          ? "home"
-                          : "rsvp"
-                      : "home"
-                  }
-                  session={session}
-                  onRsvpCompleted={handleRsvpCompleted}
-                />
-              )}
+              <Shell initialTab={isRsvpPath ? "details" : "home"} inviteAccess={inviteAccess} />
             </motion.div>
           )}
         </AnimatePresence>
