@@ -818,7 +818,6 @@ const InvitationDetailsPage = () => (
   <div>
     <section className="mx-auto max-w-4xl px-4 pt-8">
       <div className="rounded-3xl border border-amber-300 bg-amber-50/95 p-6 text-center shadow-xl backdrop-blur-sm md:p-8">
-        <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-700">You're Invited</p>
         <h1 className="mt-2 font-serif text-3xl text-amber-950 md:text-4xl">Wedding Details & RSVP</h1>
         <p className="mx-auto mt-3 max-w-2xl text-stone-700">
           We can't wait to celebrate with you. Review the wedding details below, then use our RSVP portal to let us know if you'll be joining us.
