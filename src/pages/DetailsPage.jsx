@@ -80,11 +80,6 @@ export default function DetailsPage() {
           <h3 className="font-serif text-2xl text-amber-950">
             Ready to RSVP?
           </h3>
-
-          <p className="mt-2 text-sm text-stone-600">
-            RSVP for your party here.
-          </p>
-
           <a
             href={KNOT_RSVP_URL}
             target="_blank"
