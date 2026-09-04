@@ -835,21 +835,6 @@ const InvitationDetailsPage = () => (
     </section>
 
     <DetailsPage />
-
-    <section className="mx-auto max-w-4xl px-4 pb-12">
-      <div className="rounded-3xl border border-amber-300 bg-white/90 p-6 text-center shadow-lg">
-        <h2 className="font-serif text-2xl text-amber-950">Ready to RSVP?</h2>
-        <p className="mt-2 text-sm text-stone-600">RSVP for your party here.</p>
-        <a
-          href={KNOT_RSVP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center justify-center rounded-xl bg-[#DAA520] px-7 py-3 font-semibold text-white shadow transition hover:bg-[#b88918]"
-        >
-          Click Me, to RSVP!
-        </a>
-      </div>
-    </section>
   </div>
 );
 
