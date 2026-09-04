@@ -853,26 +853,20 @@ const InvitationDetailsPage = () => (
   </div>
 );
 
-const buildTabs = (inviteAccess) => [
+const buildTabs = () => [
   { key: "home", label: "Home", icon: HomeIcon, comp: <HomePage /> },
   { key: "photos", label: "Photos", icon: Camera, comp: <Photos /> },
   { key: "videos", label: "Videos", icon: Film, comp: <Videos /> },
+  { key: "details", label: "Details", icon: CheckCircle2, comp: <InvitationDetailsPage /> },
   { key: "registry", label: "Registry", icon: Gift, comp: <RegistryPage /> },
-  ...(inviteAccess
-    ? [{ key: "details", label: "Details", icon: CheckCircle2, comp: <InvitationDetailsPage /> }]
-    : []),
 ];
 
 /* ----------------------------------------------------------
    Shell with tabs
 ---------------------------------------------------------- */
-const Shell = ({ initialTab = "home", inviteAccess = false }) => {
+const Shell = ({ initialTab = "home" }) => {
   const [tab, setTab] = useState(initialTab);
-  const tabs = buildTabs(inviteAccess);
-
-  useEffect(() => {
-    if (tab === "details" && !inviteAccess) setTab("home");
-  }, [inviteAccess, tab]);
+  const tabs = buildTabs();
 
   return (
     <div className="min-h-screen flex flex-col" style={{ "--headerH": "75px", "--footerH": "100px" }}>
@@ -915,21 +909,18 @@ const Shell = ({ initialTab = "home", inviteAccess = false }) => {
 ---------------------------------------------------------- */
 export default function WeddingWebsite() {
   const redirectedPath = new URLSearchParams(window.location.search).get("p");
-  const currentPath = (redirectedPath || window.location.pathname).replace(/\/+$/, "");
-  const isRsvpPath = currentPath === "/rsvp";
-
-  if (isRsvpPath) {
-    sessionStorage.setItem("wedding_invite_access", "true");
-  }
-
-  const inviteAccess =
-    isRsvpPath || sessionStorage.getItem("wedding_invite_access") === "true";
+  const requestedPath = (redirectedPath || window.location.pathname).replace(/\/+$/, "");
+  const cameFromRsvp = requestedPath === "/rsvp";
 
   useEffect(() => {
-    if (redirectedPath) window.history.replaceState({}, "", redirectedPath);
-  }, [redirectedPath]);
+    // The printed QR can keep pointing to /rsvp forever.
+    // Guests still see the normal splash page, while the address becomes the main site.
+    if (cameFromRsvp || redirectedPath) {
+      window.history.replaceState({}, "", "/");
+    }
+  }, [cameFromRsvp, redirectedPath]);
 
-  const [entered, setEntered] = useState(isRsvpPath);
+  const [entered, setEntered] = useState(false);
 
   return (
     <div className="text-caramel font-semibold">
@@ -942,7 +933,7 @@ export default function WeddingWebsite() {
             </motion.div>
           ) : (
             <motion.div key="site" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} transition={{ duration: 1.2, ease: "easeOut" }}>
-              <Shell initialTab={isRsvpPath ? "details" : "home"} inviteAccess={inviteAccess} />
+              <Shell initialTab="home" />
             </motion.div>
           )}
         </AnimatePresence>
