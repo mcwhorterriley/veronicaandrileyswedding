@@ -23,7 +23,7 @@ export default function DetailsPage() {
               </p>
 
               <p>
-                <strong>Time:</strong> Ceremony time coming soon
+                <strong>Time:</strong> This website is public facing. Use your invitation or message us separately.
               </p>
 
               <p>
